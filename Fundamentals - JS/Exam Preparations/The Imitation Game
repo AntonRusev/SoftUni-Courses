@@ -1,0 +1,49 @@
+function imitationGame (input) {
+    let message = input.shift();
+    let functions = {
+        Move,
+        Insert,
+        ChangeAll,
+    }
+
+    for (let element of input) {
+        let [command, p1, p2] = element.split('|');
+        if (command == 'Decode') {
+            break;
+        }
+        let result = functions[command];
+        message = result(p1, p2)
+    }
+
+    function Move(number) {
+        let left = message.substring(0, number);
+        let right = message.substring(number);
+        let result = right + left;
+        return result;
+    }
+    function Insert(index, substring) {
+        let left = message.substring(0, index);
+        let right = message.substring(index);
+        let result = left + substring + right;
+        return result;
+    }
+    function ChangeAll(substring, replacement) {
+        let result = message.split(substring).join(replacement);
+        return result;
+    }
+    console.log(`The decrypted message is: ${message}`)
+}
+imitationGame([
+    'zzHe',
+    'ChangeAll|z|l',
+    'Insert|2|o',
+    'Move|3',
+    'Decode'  ]);
+console.log(`\n --- \n`)
+imitationGame([
+    'owyouh',
+    'Move|2',
+    'Move|3',
+    'Insert|3|are',
+    'Insert|9|?',
+    'Decode']);
