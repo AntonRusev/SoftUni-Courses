@@ -1,0 +1,30 @@
+function messageTranslator(input) {
+    let countOfInputs = Number(input.shift());
+    let pattern = /!(?<command>[A-Z][a-z]{2,})!:\[(?<string>[A-Za-z]{8,})\]/;
+
+        for (let i = 0; i < countOfInputs; i++) {
+            let match = input[i].match(pattern);
+            let message = '';
+
+                if (match != null){
+                    let command = match.groups.command;
+                    let string = match.groups.string;
+                    
+                    for (let letter of string){
+                        let codeAt = letter.charCodeAt(0);
+                        message += codeAt + " ";
+                    }
+                console.log(`${command}: ${message}`);
+                } else {
+                    console.log(`The message is invalid`);
+                }
+        }
+}
+messageTranslator(["2",
+"!Send!:[IvanisHere]",
+"*Time@:[Itis5amAlready"]);
+console.log(`\n --- \n`);
+messageTranslator(["3",
+"go:[outside]",
+"!drive!:YourCarToACarWash",
+"!Watch!:[LordofTheRings]"]);
