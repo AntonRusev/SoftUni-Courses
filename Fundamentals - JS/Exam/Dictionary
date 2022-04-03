@@ -1,0 +1,51 @@
+function dictionary(input) {
+    let sourceForDictionary = input.shift().split(' | ');
+    let dictionary = {};
+
+        for (let element of sourceForDictionary) {
+            let [word, description] = element.split(': ');
+                if (dictionary.hasOwnProperty(word)) {                    
+                    dictionary[word].push(description);
+                } else {
+                    dictionary[word] = [];
+                    dictionary[word].push(description);
+                }
+        }
+    let wordsOfInterest = [];
+    let words = input.shift().split(' | ');
+        for (let word of words) {
+            wordsOfInterest.push(word);
+        }
+        
+    let keys = Object.keys(dictionary);
+
+        if (input[0] == 'Hand Over') {
+
+            let keysString = '';
+            keys.forEach(key => keysString += key + ' ');
+            console.log(keysString)
+        } else {
+            keys = keys.sort((a, b) => a.localeCompare(b))
+                for (let key of keys) {
+                    if (wordsOfInterest.includes(key)) {
+                        let info = dictionary[key];
+                        console.log(`${key}:`);
+                            for (let line of info) {
+                            console.log(` -${line}`);
+                            }
+                    }
+                }
+        } 
+}
+
+dictionary(["programmer: an animal, which turns coffee into code | developer: a magician",
+"fish | domino",
+"Hand Over"]);
+console.log(`\n --- \n`);
+dictionary(["care: worry, anxiety, or concern | care: a state of mind in which one is troubled | face: the front part of the head, from the forehead to the chin",
+"care | kitchen | flower",
+"Test"]);
+console.log(`\n --- \n`);
+dictionary(["tackle: the equipment required for a task or sport | code: write code for a computer program | bit: a small piece, part, or quantity of something | tackle: make determined efforts to deal with a problem | bit: a short time or distance",
+"bit | code | tackle",
+"Test"]);
