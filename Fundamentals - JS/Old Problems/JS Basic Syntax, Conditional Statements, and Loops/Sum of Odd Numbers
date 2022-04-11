@@ -1,0 +1,19 @@
+function sumOfOddNumbers(goal){
+    let sum = 0;
+    let count = 0;
+    let number = 1;
+    while (count != goal) {
+        if (number % 2 != 0) {
+            console.log(number);
+            count++
+            sum += number
+        } 
+        number++
+
+    }
+    console.log(`Sum: ${sum}`)
+
+}
+sumOfOddNumbers(5);
+console.log(`\n --- \n`)
+sumOfOddNumbers(3);
