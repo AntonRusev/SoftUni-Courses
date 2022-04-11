@@ -1,0 +1,11 @@
+function numbersFromN(input) {
+    
+    while (input > 0) {
+        console.log(input);
+        input--;
+    }
+
+}
+numbersFromN(5);
+console.log(`\n --- \n`)
+numbersFromN(3);
