@@ -1,0 +1,10 @@
+function numbersFromNtoM(start, end) {
+    while (start >= end) {
+        console.log(start); 
+        start--
+    }
+
+}
+numbersFromNtoM(6, 2);
+console.log(`\n --- \n`)
+numbersFromNtoM(4, 1);
