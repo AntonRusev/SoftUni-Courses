@@ -1,0 +1,36 @@
+function login(input) {
+    let index = 0;
+    let userName = input[index];
+    index++
+    let password = userName.split('').reverse('').join('');
+
+    let entry = input[index];
+
+    let counter = 0;
+    let isNotBlocked = true;
+ 
+
+    while (entry !== password) {
+
+        if (counter === 3) {
+            console.log(`User ${userName} blocked!`)
+            isNotBlocked = false;
+            break;
+        } else {
+        console.log(`Incorrect password. Try again.`)
+        counter++;
+        index++;
+        entry = input[index];
+        }
+
+
+    }
+    if (isNotBlocked) {
+    console.log(`User ${userName} logged in.`)
+    }
+}
+login(['Acer','login','go','let me in','recA']);
+console.log(`\n --- \n`);
+login(['momo','omom']);
+console.log(`\n --- \n`);
+login(['sunny','rainy','cloudy','sunny','not sunny']);
