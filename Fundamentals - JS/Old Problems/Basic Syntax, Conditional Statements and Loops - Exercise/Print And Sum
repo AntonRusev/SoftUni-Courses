@@ -1,0 +1,17 @@
+function printAndSum(startNum, endNum) {
+
+    let sum = 0;
+    let chain = ''
+
+    for (let i = startNum; i <= endNum; i++){
+        chain += i + ' '
+        sum += i
+    }
+    console.log(chain);
+    console.log(`Sum: ${sum}`)
+}
+printAndSum(5, 10);
+console.log(`\n --- \n`);
+printAndSum(0, 26);
+console.log(`\n --- \n`);
+printAndSum(50, 60);
