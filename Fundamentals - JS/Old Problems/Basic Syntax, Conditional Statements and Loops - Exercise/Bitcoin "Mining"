@@ -1,0 +1,45 @@
+function bitcoinMining (input) {
+    let index = 0;
+    let income = input[index];
+
+    let bitcoinPurchased = false;
+    let dayOfFirstBitcoin = 0;
+
+    let leva = 0; 
+    let bitcoin = 0;
+    let dayCounter = 0;
+
+    while (income) {
+
+        dayCounter++;
+        if (dayCounter % 3 == 0) {
+            income -= 30/100 * income
+            leva += income * 67.51;
+        } else {
+            leva += income * 67.51; 
+        }
+        while (leva >= 11949.16) {
+            bitcoin++;
+            leva -= 11949.16;
+            if (bitcoinPurchased == false) {
+                bitcoinPurchased = true;
+                dayOfFirstBitcoin = dayCounter;
+            }
+        }
+
+        index++;
+        income = input[index]
+    }
+
+    console.log(`Bought bitcoins: ${bitcoin}`)
+    if (bitcoinPurchased == true) {
+    console.log(`Day of the first purchased bitcoin: ${dayOfFirstBitcoin}`) }
+    console.log(`Left money: ${leva.toFixed(2)} lv.`)
+
+
+}
+bitcoinMining([100, 200, 300]);
+console.log(`\n --- \n`);
+bitcoinMining([50, 100]);
+console.log(`\n --- \n`);
+bitcoinMining([3124.15, 504.212, 2511.124]);
