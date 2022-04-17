@@ -1,0 +1,59 @@
+function pyramid(base, increment){
+
+    let stone = 0;
+    let marble = 0;
+    let lapisLazuli = 0;
+    let gold = 0;
+
+    let counter = 0;
+
+    let height = 0;
+    let floor = 0;
+    let floorStone = 0;
+    let floorMarble = 0;
+    let floorLapis = 0; 
+
+    while (base > 0) {
+        height++;
+        if (base <= 2) {
+            gold = (base * base) * increment
+            break;
+        }
+        counter++;
+
+        floor = base * base;
+        floorStone = (base - 2) * (base -2);
+        stone += floorStone * increment;
+        if(counter % 5 == 0) {
+            floorLapis = floor - floorStone;
+            lapisLazuli += floorLapis * increment;
+
+        } else {
+            floorMarble = floor - floorStone;
+            marble += floorMarble * increment;
+        }
+
+
+
+
+        base -= 2;
+        
+
+
+    }
+    height = height * increment;
+    console.log(`Stone required: ${Math.ceil(stone)}`);
+    console.log(`Marble required: ${Math.ceil(marble)}`);
+    console.log(`Lapis Lazuli required: ${Math.ceil(lapisLazuli)}`);
+    console.log(`Gold required: ${Math.ceil(gold)}`);
+    console.log(`Final pyramid height: ${Math.floor(height)}`);
+
+
+}
+pyramid(11, 1);
+console.log(`\n --- \n`);
+pyramid(11, 0.75);
+console.log(`\n --- \n`);
+pyramid(12, 1);
+console.log(`\n --- \n`);
+pyramid(23, 0.5);
