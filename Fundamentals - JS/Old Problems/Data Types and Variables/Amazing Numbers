@@ -1,0 +1,29 @@
+function amazingNumbers(number) {
+    number = number.toString();
+
+    let sum = 0;
+    let char = '';
+
+    let isAmazing = 'False';
+
+    for (let i = 0; i < number.length; i++) {
+        char = number[i];
+        sum += Number(char);
+    }
+
+    let goal = sum.toString();
+
+    for (let y = 0; y < goal.length; y++ ) {
+        char = goal[y];
+        if (char == 9) {
+            isAmazing = 'True';
+            break;
+        }
+    }
+    console.log(`${number} Amazing? ${isAmazing}`)
+
+
+}
+amazingNumbers(1233);
+console.log(`\n --- \n`);
+amazingNumbers(999);
