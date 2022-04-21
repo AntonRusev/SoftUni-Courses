@@ -1,0 +1,24 @@
+function specialNumbers(number) {
+    let sum = 0;
+
+    for (let i = 1; i <= number; i++) {
+        sum += i;
+        if(i >= 10) {
+            sum = 0
+           let sumDoubleDigits = String(i);
+            for (y = 0; y < sumDoubleDigits.length; y++){
+                sum += Number(sumDoubleDigits[y]);
+            }
+        }
+        if(sum == 5 || sum == 7 || sum == 11) {
+            console.log(`${i} -> True`);
+        } else {
+            console.log(`${i} -> False`)
+        }
+        sum = 0;
+    }
+
+}
+specialNumbers(15);
+console.log(`\n --- \n`);
+specialNumbers(20);
