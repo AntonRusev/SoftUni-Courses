@@ -1,0 +1,11 @@
+function rightPlace(firstWord, char, goalWord) {
+
+    let replaced = firstWord.replace('_', char);
+
+    let output = replaced === goalWord ? 'Matched' : 'Not Matched';
+    console.log(output);
+
+}
+rightPlace('Str_ng', 'I', 'Strong');
+console.log(`\n --- \n`);
+rightPlace('Str_ng', 'i', 'String');
