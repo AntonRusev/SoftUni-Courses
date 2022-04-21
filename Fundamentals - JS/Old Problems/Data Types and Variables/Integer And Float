@@ -1,0 +1,22 @@
+function integerAndFloat (firstNumber, secondNumber, thirdNumber) {
+    let sum = firstNumber + secondNumber + thirdNumber
+
+    // let answer = sum % 1 === 0 ? 'Integer' : 'Float';
+    
+    // console.log(answer)
+    let sumLenght = '' + sum
+    let char = '';
+    let result = 'Integer';
+
+    for (let i = 0; i < sumLenght.length; i++) {
+        char = sumLenght[i];
+        if (char === '.') {
+            result = 'Float'
+            break;
+        }
+    }
+    console.log(`${sum} - ${result}`)
+}
+integerAndFloat(9, 100, 1.1);
+console.log(`\n --- \n`);
+integerAndFloat(100, 200, 303);
