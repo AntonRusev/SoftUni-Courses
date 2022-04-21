@@ -1,0 +1,21 @@
+function triplesOfLatinLetters(number) {
+    number = Number(number);
+
+
+    for (let i = 0; i < number; i++) { 
+        let firstLetter = String.fromCharCode(97+i);
+       for (let y = 0; y < number; y++) {
+            let secondLetter = String.fromCharCode(97+y);
+            for (let j = 0; j < number; j++) {
+                let thirdLetter = String.fromCharCode(97+j);
+                console.log(`${firstLetter}${secondLetter}${thirdLetter}`)
+            }
+       }
+
+    }
+
+
+}
+triplesOfLatinLetters('3');
+console.log(`\n --- \n`);
+triplesOfLatinLetters(2);
