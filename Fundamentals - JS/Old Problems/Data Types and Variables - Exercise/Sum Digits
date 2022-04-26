@@ -1,0 +1,16 @@
+function sumOfDigits(number) {
+
+    let sum = 0;
+    number = String(number);
+
+    for (let i = 0; i < number.length; i++) {
+        sum += Number(number[i]);
+    }
+
+    console.log(sum)
+}
+sumOfDigits(245678);
+console.log(`\n --- \n`);
+sumOfDigits(97561);
+console.log(`\n --- \n`);
+sumOfDigits(543);
