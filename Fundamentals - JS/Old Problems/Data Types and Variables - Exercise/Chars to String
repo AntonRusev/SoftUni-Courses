@@ -1,0 +1,15 @@
+function charsToString(charOne, charTwo, charThree) {
+
+    console.log(`${charOne}${charTwo}${charThree}`)
+}
+charsToString('a',
+'b',
+'c');
+console.log(`\n --- \n`);
+charsToString('%',
+'2',
+'o');
+console.log(`\n --- \n`);
+charsToString('1',
+'5',
+'p');
