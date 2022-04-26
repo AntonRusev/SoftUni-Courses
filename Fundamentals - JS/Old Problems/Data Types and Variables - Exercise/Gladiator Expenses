@@ -1,0 +1,32 @@
+function gladiatorExpenses(lostFights, helmetPrice, swordPrice, shieldPrice, armorPrice) {
+    let repairPrice = 0;
+
+    for (i = 1; i <= lostFights; i++) {
+        if (i % 2 == 0) {
+            repairPrice += helmetPrice;
+        } 
+        if (i % 3 == 0) {
+            repairPrice += swordPrice;
+        } 
+        if (i % 6 == 0) {
+            repairPrice += shieldPrice;
+        }
+        if (i % 12 == 0) {
+            repairPrice += armorPrice;
+        }
+    }
+    console.log(`Gladiator expenses: ${repairPrice.toFixed(2)} aureus`)
+
+
+}
+gladiatorExpenses(7,
+    2,
+    3,
+    4,
+    5);
+console.log(`\n --- \n`);
+gladiatorExpenses(23,
+    12.50,
+    21.50,
+    40,
+    200);
