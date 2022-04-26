@@ -1,0 +1,12 @@
+function lowerOrUpper(letter) {
+    goal = letter.toUpperCase()
+    if(letter == goal) {
+        console.log(`upper-case`);
+    } else {
+        console.log(`lower-case`)
+    }
+
+}
+lowerOrUpper('L');
+console.log(`\n --- \n`);
+lowerOrUpper('f');
