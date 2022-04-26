@@ -1,0 +1,23 @@
+function spiceMustFlow(yield){
+    let dayCounter = 0;
+    let spiceExtracted = 0;
+
+    while (yield >= 100) {
+        dayCounter++;
+
+        spiceExtracted += (yield - 26);
+
+        yield -= 10;
+
+    }   
+    spiceExtracted -= 26;
+    if (spiceExtracted < 0) {
+        spiceExtracted = 0;
+    }
+    console.log(dayCounter);
+    console.log(spiceExtracted);
+
+}
+spiceMustFlow(111);
+console.log(`\n --- \n`);
+spiceMustFlow(450);
