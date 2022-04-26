@@ -1,0 +1,27 @@
+function calculator(numberOne, operator, numberTwo) {
+
+    let result = 0;
+
+    switch(operator) {
+        case '+':
+            console.log((numberOne + numberTwo).toFixed(2));
+            break;
+        case '-':
+            console.log((numberOne - numberTwo).toFixed(2));
+            break;
+        case '*':
+            console.log((numberOne * numberTwo).toFixed(2));
+            break;
+        case '/':
+            console.log((numberOne / numberTwo).toFixed(2));
+            break;
+    }
+
+}
+calculator(5,
+    '+',
+    10);
+console.log(`\n --- \n`);
+calculator(25.5,
+    '-',
+    3);
