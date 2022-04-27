@@ -1,0 +1,19 @@
+function biggestNumberOfThree(numOne, numTwo, numThree) {
+
+    console.log(Math.max(numOne, numTwo, numThree))
+}
+biggestNumberOfThree(-2,
+    7,
+    3);
+console.log(`\n --- \n`);
+biggestNumberOfThree(130,
+    5,
+    99);
+console.log(`\n --- \n`);
+biggestNumberOfThree(43,
+    43.2,
+    43.1);
+console.log(`\n --- \n`);
+biggestNumberOfThree(2,
+    2,
+    2);
