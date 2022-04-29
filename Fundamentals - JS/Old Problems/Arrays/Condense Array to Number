@@ -1,0 +1,19 @@
+function condenseArrayToNumber(arrInput) {
+
+    let newArr = arrInput;
+
+    while (newArr.length > 1) {
+        let tempArr = [];
+
+        for (let i = 0; i < newArr.length - 1; i++) {
+            tempArr.push(newArr[i] + newArr[i + 1]);
+        }
+        newArr = tempArr;
+    }
+    console.log(newArr[0])
+}
+condenseArrayToNumber([2,10,3]);
+console.log(`\n --- \n`);
+condenseArrayToNumber([5,0,4,1,2]);
+console.log(`\n --- \n`);
+condenseArrayToNumber([1]);
