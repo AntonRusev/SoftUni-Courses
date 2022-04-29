@@ -1,0 +1,22 @@
+function equalArrays(arrOne, arrTwo) {
+    let sum = 0;
+    let areEqual = true;
+    for(let i = 0; i < arrOne.length; i++) {
+        if (arrOne[i] == arrTwo[i]) {
+            sum += Number(arrOne[i]);
+        } else {
+            areEqual = false;
+            console.log( `Arrays are not identical. Found difference at ${i} index`)
+            break;
+        }
+    }
+    if (areEqual) {
+        console.log(`Arrays are identical. Sum: ${sum}`)
+    }
+
+}
+equalArrays(['10','20','30'], ['10','20','30']);
+console.log(`\n --- \n`);
+equalArrays(['1','2','3','4','5'], ['1','2','4','4','5']);
+console.log(`\n --- \n`);
+equalArrays(['1'], ['10']);
