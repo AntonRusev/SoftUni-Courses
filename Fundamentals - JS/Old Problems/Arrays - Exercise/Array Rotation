@@ -1,0 +1,17 @@
+function arrayRotation(arr, rotation) {
+
+    let temp = 0;
+
+    for(let i = 0; i < rotation; i++) {
+
+        let currentNumb = arr.shift();
+         arr.push(currentNumb);
+
+    }
+    console.log(arr.join(' '))
+}
+arrayRotation([51, 47, 32, 61, 21], 2);
+console.log(`\n --- \n`);
+arrayRotation([32, 21, 61, 1], 4);
+console.log(`\n --- \n`);
+arrayRotation([2, 4, 15, 31], 5);
