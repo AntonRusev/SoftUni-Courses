@@ -1,0 +1,37 @@
+function signCheck(numOne, numTwo, numThree) {
+
+    let result = 'Positive';
+    let counter = 0;
+
+    if (numOne < 0) {
+        counter++;
+    }
+    if (numTwo < 0) {
+        counter++;
+    }
+    if (numThree < 0) {
+        counter ++;
+    }
+    if (counter % 2 === 0) {
+         result
+    } else {
+         result = 'Negative'
+    }
+    console.log(result)
+
+}
+signCheck( 5,
+    12,
+   -15);
+console.log(`\n --- \n`);
+signCheck(-6,
+    -12,
+     14);
+console.log(`\n --- \n`);
+signCheck(-1,
+    -2,
+    -3);
+console.log(`\n --- \n`);
+signCheck(-5,
+    1,
+    1);
