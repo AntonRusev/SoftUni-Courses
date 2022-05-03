@@ -1,0 +1,32 @@
+function simpleCalculator(numOne, numTwo, operator) {
+    
+    switch(operator) {
+        case 'multiply' :
+           console.log(numOne * numTwo);
+           break;
+        case 'divide':
+           console.log(numOne / numTwo);
+           break;
+        case 'add':
+           console.log(numOne + numTwo);
+           break;
+        case 'subtract':
+           console.log(numOne - numTwo);
+    }
+
+}
+simpleCalculator(5,
+    5,
+    'multiply');
+console.log(`\n --- \n`);
+simpleCalculator(40,
+    8,
+    'divide');
+console.log(`\n --- \n`);
+simpleCalculator(12,
+    19,
+    'add');
+console.log(`\n --- \n`);
+simpleCalculator(50,
+    13,
+    'subtract');
