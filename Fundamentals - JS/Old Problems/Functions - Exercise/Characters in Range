@@ -1,0 +1,23 @@
+function charactersInRange(charOne, charTwo) {
+    let result = '';
+
+    let start = charOne.charCodeAt(0);
+    let end = charTwo.charCodeAt(0);
+    if (charOne > charTwo){
+        start = charTwo.charCodeAt(0);
+        end = charOne.charCodeAt(0);
+    }
+    for (let i = start + 1; i < end; i++){
+       result += (String.fromCharCode(i)) + " ";
+    }
+
+    console.log(result)
+}
+charactersInRange('a',
+'d');
+console.log(`\n --- \n`);
+charactersInRange('#',
+':');
+console.log(`\n --- \n`);
+charactersInRange('C',
+'#');
