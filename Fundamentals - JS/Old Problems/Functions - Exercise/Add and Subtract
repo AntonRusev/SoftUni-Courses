@@ -1,0 +1,25 @@
+function addAndSubtract(numOne, numTwo, numThree) {
+
+
+    let a = function sum(numOne, numTwo) {
+        return numOne + numTwo;
+    }
+    
+    
+    let b = function subtract(a, numThree) {
+        return a - numThree;
+    }
+    
+        console.log(b(a(numOne, numTwo), numThree))
+    }
+addAndSubtract(23,
+    6,
+    10);
+console.log(`\n --- \n`);
+addAndSubtract(1,
+    17,
+    30);
+console.log(`\n --- \n`);
+addAndSubtract(42,
+    58,
+    100);
