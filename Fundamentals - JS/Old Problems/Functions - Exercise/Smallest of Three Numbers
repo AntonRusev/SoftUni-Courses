@@ -1,0 +1,26 @@
+function smallestNumber(numOne, numTwo, numThree) {
+
+    if(numOne <= numTwo && numOne <= numThree) {
+        console.log(numOne);
+    } else if (numTwo <= numOne && numTwo <= numThree) {
+        console.log(numTwo);
+    } else {
+        console.log(numThree)
+    }
+
+}
+smallestNumber(2,
+    5,
+    3);
+console.log(`\n --- \n`);
+smallestNumber(600,
+    342,
+    123);
+console.log(`\n --- \n`);
+smallestNumber(25,
+    21,
+    4);
+console.log(`\n --- \n`);
+smallestNumber(2,
+    2,
+    2);
