@@ -1,0 +1,25 @@
+function loadingBar(percent) {
+    let arr = Array(10);
+    arr.fill('.');
+
+    for (let i = 0; i < percent / 10 ; i++) {
+        arr[i] = '%';
+    }
+    let loadingBar = '';
+    for (let y = 0; y < arr.length; y++) {
+        loadingBar += arr[y] 
+    }
+
+    if (percent < 100) {
+        console.log(`${percent}% [${loadingBar}]`)
+        console.log(`Still loading...`);
+    } else {
+        console.log(`${percent}% Complete!`)
+        console.log(`[${loadingBar}]`)
+    }
+}
+loadingBar(30);
+console.log(`\n --- \n`);
+loadingBar(50);
+console.log(`\n --- \n`);
+loadingBar(100);
