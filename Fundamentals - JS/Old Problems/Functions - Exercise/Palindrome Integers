@@ -1,0 +1,17 @@
+function isPalindrome(arr){
+
+    for (let i = 0; i < arr.length; i++) {
+        let number = String(arr[i]);
+        let reversedNumber = number.split('').reverse().join('');
+        if (number === reversedNumber) {
+            console.log('true')
+        } else {
+            console.log('false')
+        }
+
+    }
+
+}
+isPalindrome([123,323,421,121]);
+console.log(`\n --- \n`);
+isPalindrome([32,2,232,1010]);
