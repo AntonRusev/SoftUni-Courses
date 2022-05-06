@@ -1,0 +1,10 @@
+function smallestTwoNumbers(arr) {
+
+    let sortedInDescending = arr.sort((a, b) => b - a);
+    let result = sortedInDescending.splice(-2);
+    console.log(result.reverse().join(" "));
+
+}
+smallestTwoNumbers([30, 15, 50, 5]);
+console.log(`\n --- \n`);
+smallestTwoNumbers([3, 0, 10, 4, 7, 3]);
