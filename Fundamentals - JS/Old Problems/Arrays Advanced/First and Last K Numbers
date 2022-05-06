@@ -1,0 +1,18 @@
+function firstAndLastKNumber(arr) {
+    let k = arr.shift();
+
+    let firstKElements = [];
+    let lastKElements = [];
+
+    firstKElements = arr.slice(0,k);
+    lastKElements = arr.slice(-k);
+    
+    console.log(firstKElements.join(' '));
+    console.log(lastKElements.join(' '));
+
+}
+firstAndLastKNumber([2, 
+    7, 8, 9]);
+console.log(`\n --- \n`);
+firstAndLastKNumber([3,
+    6, 7, 8, 9]);
