@@ -1,0 +1,11 @@
+function listOfProducs(arr) {
+    let list = arr.sort();
+
+    for (let i = 0; i < arr.length; i++) {
+        console.log(`${i + 1}.${list[i]} `)
+    }
+
+}
+listOfProducs(['Potatoes', 'Tomatoes', 'Onions', 'Apples']);
+console.log(`\n --- \n`);
+listOfProducs(['Watermelon', 'Banana', 'Apples']);
