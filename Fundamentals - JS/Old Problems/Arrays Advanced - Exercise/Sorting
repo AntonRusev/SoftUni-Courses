@@ -1,0 +1,19 @@
+function sorting(array) {
+    let sortedArray = [];
+    
+
+    array.sort((a, b) => b - a);
+
+    while (array.length > 0) {
+        let biggest = array.shift();
+        let smallest = array.pop();
+
+        sortedArray.push(biggest);
+        sortedArray.push(smallest);
+    }
+    console.log(sortedArray.join(" "));
+
+}
+sorting([1, 21, 3, 52, 69, 63, 31, 2, 18, 94]);
+console.log(`\n --- \n`);
+sorting([34, 2, 32, 45, 690, 6, 32, 7, 19, 47]);
