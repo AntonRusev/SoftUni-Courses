@@ -1,0 +1,55 @@
+function gladiatorInventory(input) {
+    let inventory = input.shift().split(" ");
+
+    for (let element of input) {
+        let operation = element.split(" ");
+        let action = operation.shift();
+        let item = operation.shift();
+
+        let useItem ='';
+        let repairItem = '';
+
+            switch(action) {
+                case 'Buy':
+                        if (inventory.indexOf(item) < 0) {
+                            inventory.push(item);
+                        }
+                    break;
+                case 'Trash':
+                        if (inventory.indexOf(item) >= 0) {
+                            let useItem = inventory.indexOf(item);
+                            inventory.splice(useItem, 1);
+                        }
+                    break;
+                case 'Repair':
+                        if (inventory.indexOf(item) >= 0) {
+                             useItem = inventory.indexOf(item);
+                             repairItem = inventory.splice(useItem, 1);
+                            inventory.push(repairItem);
+                        }
+                    break;
+                case 'Upgrade':
+                    let upgrade = item.split('-');
+                    let newUpgraded = upgrade[0]+":"+ upgrade[1]
+
+                    if (inventory.indexOf(upgrade[0]) >= 0) {
+                        useItem = inventory.indexOf(upgrade[0])
+                        inventory.splice(useItem + 1, 0, newUpgraded)
+                    }
+                    break;
+
+            }
+    }
+
+console.log(inventory.join(" "))
+}
+gladiatorInventory(['SWORD Shield Spear',
+'Buy Bag',
+'Trash Shield',
+'Repair Spear',
+'Upgrade SWORD-Steel']);
+console.log(`\n --- \n`);
+gladiatorInventory(['SWORD Shield Spear',
+'Trash Bow',
+'Repair Shield',
+'Upgrade Helmet-V']);
