@@ -1,0 +1,9 @@
+function sortByTwo(array) {
+    
+    array.sort((a, b) => a.length - b.length || a.localeCompare(b))
+    console.log(array.join("\n"))
+
+}
+sortByTwo(['alpha', 'beta', 'gamma']);
+console.log(`\n --- \n`);
+sortByTwo(['Isacc', 'Theodor', 'Jack', 'Harrison', 'George']);
