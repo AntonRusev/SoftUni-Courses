@@ -1,0 +1,31 @@
+function buildWall(startingHeights) {
+    startingHeights.map(Number);
+    let foot = 195;
+    let price = 0;
+    let totalConcrete = 0;
+    let concreteArray = [];
+    let dailyConcrete = 0;
+
+    while (startingHeights) {
+        dailyConcrete = 0;
+        for (let i = 0; i < startingHeights.length; i++) {
+            if (startingHeights[i] < 30) {
+                dailyConcrete += foot;
+                startingHeights[i] = startingHeights[i] + 1
+            }
+        }
+            totalConcrete += dailyConcrete;             
+            if (dailyConcrete < 1) {
+                break;
+            }
+            concreteArray.push(dailyConcrete);
+    }
+    price = totalConcrete * 1900
+
+    console.log(concreteArray.join(", "))
+    console.log(price + ' pesos')
+
+}
+buildWall([17]);
+console.log(`\n --- \n`);
+buildWall([17, 22, 17, 19, 17]);
