@@ -1,0 +1,23 @@
+function searchNumber(numbers, operations) {
+    let toTake = operations.shift();
+    let toDelete = operations.shift();
+    let searchedNum = operations.shift();
+
+    numbers.splice(toTake);
+    toDelete = numbers.splice(0, toDelete);
+
+    let counter = 0;
+
+    for (let element of numbers) {
+        if (element === searchedNum) {
+            counter++;
+        }
+    }
+        console.log(`Number ${searchedNum} occurs ${counter} times.`)
+
+}
+searchNumber([5, 2, 3, 4, 1, 6],
+    [5, 2, 3]);
+console.log(`\n --- \n`);
+searchNumber([7, 1, 5, 8, 2, 7],
+    [3, 1, 5]);
