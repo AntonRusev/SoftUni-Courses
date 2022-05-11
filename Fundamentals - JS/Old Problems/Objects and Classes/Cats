@@ -1,0 +1,20 @@
+function cats(input) {
+    class Cat {
+        constructor(name, age) {
+            this.name = name;
+            this.age = age;
+            this.meow = console.log(`${this.name}, age ${this.age} says Meow`)
+        }
+     }
+     for (let element of input) {
+        let kitty = element.split(" ");
+        let catName = kitty.shift();
+        let catAge = kitty.shift();
+        let cat = new Cat(catName, catAge);
+
+     }
+
+}
+cats(['Mellow 2', 'Tom 5']);
+console.log(`\n --- \n`);
+cats(['Candy 1', 'Poppy 3', 'Nyx 2']);
