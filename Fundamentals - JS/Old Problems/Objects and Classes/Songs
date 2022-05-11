@@ -1,0 +1,42 @@
+function songs(arr){
+    let songs = [];
+    let numberOfSongs = arr.shift();
+    let keyWord = arr.pop();
+    class Song {
+        constructor(typeList, name, time) {
+            this.typeList = typeList;
+            this.name = name;
+            this.time = time; 
+        }
+    }
+    for (let element of arr) {
+        let token = element.split("_");
+        songs.push(new Song(token[0], token[1], token[2]))
+    }
+    for (let element of songs) {
+        if (keyWord == 'all') {
+            console.log(element.name)
+        } else {
+            if (keyWord == element.typeList) {
+                console.log(element.name)
+            }
+        }
+    }
+}
+songs([3,
+    'favourite_DownTown_3:14',
+    'favourite_Kiss_4:16',
+    'favourite_Smooth Criminal_4:01',
+    'favourite']);
+console.log(`\n --- \n`);
+songs([4,
+    'favourite_DownTown_3:14',
+    'listenLater_Andalouse_3:24',
+    'favourite_In To The Night_3:58',
+    'favourite_Live It Up_3:48',
+    'listenLater']);
+console.log(`\n --- \n`);
+songs([2,
+    'like_Replay_3:15',
+    'ban_Photoshop_3:48',
+    'all']);
