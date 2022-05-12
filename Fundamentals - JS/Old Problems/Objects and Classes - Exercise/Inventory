@@ -1,0 +1,32 @@
+function inventory(input) {
+    let hero = [];
+
+    for (let line of input) {
+        let info = line.split(" / ");
+        let heroName = info.shift();
+        let heroLevel = info.shift();
+        let inventory = info.shift();
+
+        hero.push({name: heroName, level: heroLevel, inventory: inventory});
+     }
+
+     hero.sort((a, b) => a.level - b.level);
+
+     for (let line of hero) {
+        console.log(`Hero: ${line.name}`)
+        console.log(`level => ${line.level}`);
+        console.log(`items => ${line.inventory}`);
+     }
+
+}
+inventory([
+    'Isacc / 25 / Apple, GravityGun',
+    'Derek / 12 / BarrelVest, DestructionSword',
+    'Hes / 1 / Desolator, Sentinel, Antara'
+    ]);
+console.log(`\n --- \n`);
+inventory([
+    'Batman / 2 / Banana, Gun',
+    'Superman / 18 / Sword',
+    'Poppy / 28 / Sentinel, Antara'
+    ]);
