@@ -1,0 +1,22 @@
+function employees(arr) {
+    let obj = {};
+
+    for (let person of arr) {
+        obj.name = person;
+        obj.number = person.length;
+        console.log(`Name: ${obj.name} -- Personal Number: ${obj.number}`)
+    }
+}
+employees([
+    'Silas Butler',
+    'Adnaan Buckley',
+    'Juan Peterson',
+    'Brendan Villarreal'
+    ]);
+console.log(`\n --- \n`);
+employees([
+    'Samuel Jackson',
+    'Will Smith',
+    'Bruce Willis',
+    'Tom Holland'
+    ]);
