@@ -1,0 +1,42 @@
+function catalogue(input) {
+    let group = [];
+
+    for (let line of input) {
+        let info = line.split(" : ");
+        let product = {
+            name: info[0],
+            price: Number(info[1]),
+        }
+        group.push(product)
+    }
+    group.sort((a, b) => a.name.localeCompare(b.name));
+
+    let currentLetter = '';
+    for (let element of group) {
+       if(element.name[0] === currentLetter) {
+            console.log(`  ${element.name}: ${element.price}`)
+       } else {
+            currentLetter = element.name[0];
+            console.log(currentLetter)
+            console.log(`  ${element.name}: ${element.price}`)
+       }
+    }
+
+}
+catalogue([
+    'Appricot : 20.4',
+    'Fridge : 1500',
+    'TV : 1499',
+    'Deodorant : 10',
+    'Boiler : 300',
+    'Apple : 1.25',
+    'Anti-Bug Spray : 15',
+    'T-Shirt : 10'
+    ]
+    );
+console.log(`\n --- \n`);
+catalogue([
+    'Omlet : 5.4',
+    'Shirt : 15',
+    'Cake : 59'
+    ]);
