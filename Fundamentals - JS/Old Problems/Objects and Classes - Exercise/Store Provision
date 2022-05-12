@@ -1,0 +1,43 @@
+function storeProvision(currentStock, orderedStock) {
+    let overallStock = {};
+    class Product {
+        constructor(name, quantity) {
+            this.name = name;
+            this.quantity = quantity;
+        }
+    }
+
+    for (let i = 0; i < currentStock.length; i += 2) {
+        let name = currentStock[i];
+        let quantity = Number(currentStock[i + 1]);
+        overallStock[name] = quantity;
+    }
+
+    for (let i = 0; i < orderedStock.length; i += 2) {
+        let name = orderedStock[i];
+        let quantity = Number(orderedStock[i + 1]);
+        if (!overallStock.hasOwnProperty(name)){
+            overallStock[name] = quantity;            
+        } else {
+            overallStock[name] += Number(quantity);
+        }
+    }
+
+    for(let element of Object.keys(overallStock)) {
+        console.log(`${element} -> ${overallStock[element]}`)
+    }
+
+}
+storeProvision([
+    'Chips', '5', 'CocaCola', '9', 'Bananas', '14', 'Pasta', '4', 'Beer', '2'
+    ],
+    [
+    'Flour', '44', 'Oil', '12', 'Pasta', '7', 'Tomatoes', '70', 'Bananas', '30'
+    ]);
+console.log(`\n --- \n`);
+storeProvision([
+    'Salt', '2', 'Fanta', '4', 'Apple', '14', 'Water', '4', 'Juice', '5'
+    ],
+    [
+    'Sugar', '44', 'Oil', '12', 'Apple', '7', 'Tomatoes', '7', 'Bananas', '30'
+    ]);
