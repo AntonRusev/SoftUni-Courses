@@ -1,0 +1,30 @@
+function fillingStorage(input) {
+    let storage = new Map;
+
+    for (let line of input) {
+        let tokens = line.split(' ');
+        let product = tokens[0];
+        let qty = Number(tokens[1]);
+
+        if (storage.has(product)) {
+            let existing = storage.get(product);
+            storage.set(product, qty + existing);
+        } else {
+            storage.set(product, qty);
+
+        }
+
+    }
+    for (let line of storage.keys()) {
+        console.log(`${line} -> ${storage.get(line)}`)
+    }
+}
+fillingStorage(['tomatoes 10',
+'coffee 5',
+'olives 100',
+'coffee 40']);
+console.log(`\n --- \n`);
+fillingStorage(['apple 50',
+'apple 61',
+'coffee 115',
+'coffee 40']);
