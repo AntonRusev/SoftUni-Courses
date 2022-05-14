@@ -1,0 +1,24 @@
+function wordOccurrences(input) {
+    let result = new Map;
+
+    for (let element of input) {
+        let number = 1;
+        if(!result.has(element)) {
+            result.set(element, number);
+        } else {
+             number = result.get(element) + 1;
+             result.set(element, number);
+        }
+    }
+    let sorted = Array.from(result);
+    sorted.sort((a, b) => b[1] - a[1]);
+
+    for (let element of sorted){
+        let word = element.shift();
+        let times = element.shift()
+        console.log(`${word} -> ${times} times`)
+    }
+}
+wordOccurrences(["Here", "is", "the", "first", "sentence", "Here", "is", "another", "sentence", "And", "finally", "the", "third", "sentence"]);
+console.log(`\n --- \n`);
+wordOccurrences(["dog", "bye", "city", "dog", "dad", "boys", "ginger"]);
