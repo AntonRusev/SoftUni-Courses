@@ -1,0 +1,31 @@
+function meetings(input) {
+    let result = {};
+
+    for (let line of input) {
+        let tokens = line.split(" ");
+        let dayOfWeek = tokens[0];
+        let name = tokens[1];
+
+        if (result.hasOwnProperty(dayOfWeek)){
+            console.log(`Conflict on ${dayOfWeek}!`)
+        } else {
+            result[dayOfWeek] = name;
+            console.log(`Scheduled for ${dayOfWeek}`)
+        }
+    }
+
+    for (let dayOfWeek in result) {
+        console.log(`${dayOfWeek} -> ${result[dayOfWeek]}`)
+    }
+
+}
+meetings(['Monday Peter',
+'Wednesday Bill',
+'Monday Tim',
+'Friday Tim']);
+console.log(`\n --- \n`);
+meetings(['Friday Bob',
+'Saturday Ted',
+'Monday Bill',
+'Monday John',
+'Wednesday George']);
