@@ -1,0 +1,53 @@
+function travelTime(input) {
+    let result = {};
+
+    for (let line of input) {
+        let [country, town, cost] = line.split(' > ');
+        cost = Number(cost);
+
+        if (result.hasOwnProperty(country) == false) {
+            result[country] = {};
+            
+            if (result[country].hasOwnProperty(town) && result[country][town] < cost) {
+            } else {
+            result[country][town] = cost;
+            }
+        } else {
+            if (result[country].hasOwnProperty(town) && result[country][town] < cost) {
+            } else {
+            result[country][town] = cost;
+            }
+        }
+    }
+
+    let sortedCoutries = Object.keys(result).sort((a, b) => a.localeCompare(b));
+    for (let country of sortedCoutries) {
+        let innerResult = '';
+        innerResult += country + ' -> ';
+        let sortedPrice = Object.keys(result[country]).sort((a, b) => {
+            return result[country][a] - result[country][b];
+        });
+        for (let element of sortedPrice) {
+            innerResult += (element + " -> ");
+            innerResult += (result[country][element]+ " ");
+        }
+        console.log(innerResult)
+    }
+    
+}
+travelTime([
+    "Bulgaria > Sofia > 500",
+    "Bulgaria > Sopot > 800",
+    "France > Paris > 2000",
+    "Albania > Tirana > 1000",
+    "Bulgaria > Sofia > 200"
+    ]);
+console.log(`\n --- \n`);
+travelTime([
+    'Bulgaria > Sofia > 25000',
+    'Bulgaria > Sofia > 25000',
+    'Kalimdor > Orgrimar > 25000',
+    'Albania > Tirana > 25000',
+    'Bulgaria > Varna > 25010',
+    'Bulgaria > Lukovit > 10'
+    ]);
