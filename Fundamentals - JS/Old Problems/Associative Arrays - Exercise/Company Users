@@ -1,0 +1,42 @@
+function companyUser(input) {
+    let result = {};
+
+    for (let line of input) {
+        let [company, employee] = line.split(' -> ');
+        
+        if (result.hasOwnProperty(company) == false) {
+            result[company] = [];
+            if (result[company].includes(employee) == false) {
+                result[company].push(employee);
+                }
+
+        } else {
+            if (result[company].includes(employee) == false) {
+            result[company].push(employee);
+            }
+        }
+    }
+    let sorted = Object.keys(result).sort((a, b) => a.localeCompare(b));
+
+        for (let key of sorted) {
+            // result[key].sort((a,b) => a.localeCompare(b));
+            console.log(key);
+            for (let element of result[key]){
+                console.log(`-- ${element}`);
+            }
+        }
+}
+companyUser([
+    'SoftUni -> AA12345',
+    'SoftUni -> BB12345',
+    'Microsoft -> CC12345',
+    'HP -> BB12345'
+    ]);
+console.log(`\n --- \n`);
+companyUser([
+    'SoftUni -> AA12345',
+    'SoftUni -> CC12344',
+    'Lenovo -> XX23456',
+    'SoftUni -> AA12345',
+    'Movement -> DD11111'
+    ]);
