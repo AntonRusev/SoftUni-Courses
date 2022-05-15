@@ -1,0 +1,72 @@
+function cardGame(input) {
+    let result = {};
+
+    let power = { 
+        1:10,
+        2:2,
+        3:3,
+        4:4,
+        5:5,
+        6:6,
+        7:7,
+        8:8,
+        9:9,
+        'J':11,
+        'Q':12,
+        'K':13,
+        'A':14,
+    };
+
+    let type = {
+        'C': 1,
+        'D': 2,
+        'H': 3,
+        'S': 4,
+    };
+
+    for (let line of input) {
+        let [name, cards] = line.split(': ');
+        if (result.hasOwnProperty(name) == false) {
+        result[name] = [];
+        }   
+        cards = cards.split(', ')
+            for (let card of cards) {
+                if (result[name].includes(card) == false) {
+                result[name].push(card);
+                }
+            }
+
+    }
+    
+    for (let pair of Object.entries(result)) {
+        let key = pair[0];
+        let cards = pair[1]
+        let finalValue = 0;
+            for (let card of cards) {
+                finalValue += (power[card[0]] * type[card[card.length - 1]] )
+            }
+        result[key] = finalValue;
+        console.log(`${key}: ${result[key]}`)
+    }
+ 
+}
+cardGame([
+    'Peter: 2C, 4H, 9H, AS, QS',
+    'Tomas: 3H, 10S, JC, KD, 5S, 10S',
+    'Andrea: QH, QC, QS, QD',
+    'Tomas: 6H, 7S, KC, KD, 5S, 10C',
+    'Andrea: QH, QC, JS, JD, JC',
+    'Peter: JD, JD, JD, JD, JD, JD'
+    ]);
+console.log(`\n --- \n`);
+cardGame([
+    'John: 2C, 4H, 9H, AS, QS',
+    'Slav: 3H, 10S, JC, KD, 5S, 10S',
+    'Alex: 6H, 7S, KC, KD, 5S, 10C',
+    'Thomas: QH, QC, JS, JD, JC',
+    'Slav: 6H, 7S, KC, KD, 5S, 10C',
+    'Thomas: QH, QC, JS, JD, JC',
+    'Alex: 6H, 7S, KC, KD, 5S, 10C',
+    'Thomas: QH, QC, JS, JD, JC',
+    'John: JD, JD, JD, JD'
+    ]);
