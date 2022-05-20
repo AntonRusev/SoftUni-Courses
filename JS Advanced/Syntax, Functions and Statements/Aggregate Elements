@@ -1,0 +1,16 @@
+function aggregateElements(array){
+    let sum = 0;
+    let inverseSum = 0;
+    let stringSum = ''; 
+    for (let element of array) {
+        sum += element;
+        inverseSum += (1 / element);
+        stringSum += element;
+    }
+    console.log(sum);
+    console.log(inverseSum);
+    console.log(stringSum);
+}
+aggregateElements([1, 2, 3]);
+console.log(`\n --- \n`);
+aggregateElements([2, 4, 8, 16]);
