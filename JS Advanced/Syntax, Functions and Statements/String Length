@@ -1,0 +1,9 @@
+function stringLength(stringOne, stringTwo, stringThree){
+    let overallLength = stringOne.length + stringTwo.length + stringThree.length;
+    console.log(overallLength);
+    console.log(Math.floor(overallLength / 3));
+
+}
+stringLength('chocolate', 'ice cream', 'cake');
+console.log(`\n --- \n`);
+stringLength('pasta', '5', '22.3');
