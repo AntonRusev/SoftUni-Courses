@@ -1,0 +1,6 @@
+function largestNumber(numberOne, numberTwo, numberThree) {
+    console.log(`The largest number is ${Math.max(numberOne, numberTwo, numberThree)}.`);
+}
+largestNumber(5, -3, 16);
+console.log(`\n --- \n`);
+largestNumber(-3, -5, -22.5);
