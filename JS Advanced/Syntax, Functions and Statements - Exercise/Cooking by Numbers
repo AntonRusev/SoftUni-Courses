@@ -1,0 +1,21 @@
+function cookingByNumbers(...params){
+    let number = Number(params.shift());
+
+    for (let element of params) {
+        if (element == 'chop') {
+            number /= 2;
+        } else if (element == 'dice') {
+            number = Math.sqrt(number);
+        } else if (element == 'spice') {
+            ++number;
+        } else if (element == 'bake') {
+            number *= 3;
+        } else {
+            number = number - (number * 0.20);
+        }
+        console.log(number);
+    }
+}
+cookingByNumbers('32', 'chop', 'chop', 'chop', 'chop', 'chop');
+console.log(`\n --- \n`);
+cookingByNumbers('9', 'dice', 'spice', 'chop', 'bake', 'fillet');
