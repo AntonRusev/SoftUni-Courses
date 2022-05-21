@@ -1,0 +1,21 @@
+function greatestCommonDivisor(numOne, numTwo) {
+    let greaterNum = Math.max(numOne, numTwo);
+    let lesserNum = Math.min(numOne, numTwo);
+    let numFound = false;
+    for (let i = greaterNum; i > 0; i--) {
+        if (greaterNum % i == 0 && numFound == false) {
+            for (let y = lesserNum; y > 0; y--) {
+                if (lesserNum % y == 0) {
+                    if (i == y){
+                        console.log(i);
+                        numFound = true;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+}
+greatestCommonDivisor(15, 5);
+console.log(`\n --- \n`);
+greatestCommonDivisor(2154, 458);
