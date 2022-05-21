@@ -1,0 +1,17 @@
+function wordsUppercase(string) {
+    let pattern = /[A-Za-z0-9]+/g;
+    let match = string.match(pattern);
+    let newArr = [];
+    
+    for (let element of match) {
+        let newElement = '';
+        for (let i = 0; i < element.length; i++) {
+            newElement += element[i].toUpperCase();
+        }
+        newArr.push(newElement)
+    }
+    console.log(newArr.join(', '))
+}
+wordsUppercase('Hi, how are you?');
+console.log(`\n --- \n`);
+wordsUppercase('hello');
