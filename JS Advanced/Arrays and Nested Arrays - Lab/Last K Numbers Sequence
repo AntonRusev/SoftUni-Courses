@@ -1,0 +1,20 @@
+function lastNumbers(numOne, numTwo) {
+    let array = [1];
+    for (let i = 0; i < numOne - 1; i++){
+        let slice = [];
+        if (array.length < numTwo) {
+            slice = array.slice(0);
+        } else {
+            slice = array.slice(array.length - numTwo);
+        }
+        let newNum = 0
+        for (let element of slice) {
+            newNum += Number(element);
+        }
+        array.push(newNum);
+    }
+   return array;
+}
+lastNumbers(6, 3);
+console.log(`\n --- \n`);
+lastNumbers(8, 2);
