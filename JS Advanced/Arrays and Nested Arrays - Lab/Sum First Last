@@ -1,0 +1,9 @@
+function sumFirstLast(array) {
+    let first = Number(array.shift());
+    let last = Number(array.pop());
+    let result = first + last;
+    return result;
+}
+sumFirstLast(['20', '30', '40']);
+console.log(`\n --- \n`);
+sumFirstLast(['5', '10']);
