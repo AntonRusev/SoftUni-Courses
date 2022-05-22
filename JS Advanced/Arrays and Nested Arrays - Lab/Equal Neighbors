@@ -1,0 +1,24 @@
+function equalNeighbors(matrix) {
+    let pairs = 0;
+    for (let i = 0; i < matrix.length; i++) {
+        for (let y = 0; y < matrix[i].length; y++) {
+            if (matrix[i][y] === matrix[i][y + 1]) {
+                pairs++;
+            }
+            if (i != matrix.length - 1) {
+                if (matrix[i][y] === matrix[i+1][y]) {
+                pairs++;
+                } 
+            }
+        }
+    }
+    return pairs;
+}
+equalNeighbors([['2', '2', '5', '7', '4'],
+                ['4', '0', '5', '3', '4'],
+                ['2', '5', '5', '4', '2'],
+]);
+console.log(`\n --- \n`);
+equalNeighbors([['test', 'yes', 'yo', 'ho'],
+['well', 'done', 'yo', '6'],
+['not', 'done', 'yet', '5']]);
