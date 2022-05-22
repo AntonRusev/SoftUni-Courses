@@ -1,0 +1,10 @@
+function processOddPositions(array) {
+    let result = [];
+    for (let i = 0; i < array.length; i++) {
+        if (i % 2 != 0) {
+            let modifiedNum = array[i] * 2;
+            result.push(modifiedNum);
+        }
+    }
+    console.log(result.reverse().join(' '));
+}
