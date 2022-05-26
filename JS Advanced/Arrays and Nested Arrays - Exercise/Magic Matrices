@@ -1,0 +1,44 @@
+function magicMatrices(matrix){
+    let firstSum = 0;
+    let isMagical = true;
+
+    for (let i = 0; i < matrix.length; i++) {
+        let currentSumRow = 0; 
+        let currentRow = matrix[i];
+        for (let y = 0; y < currentRow.length; y++) {
+            currentSumRow += Number(currentRow[y]);
+        }
+            if (firstSum == 0) {
+                firstSum = currentSumRow;
+            } else {
+                if (firstSum != currentSumRow) {
+                    isMagical = false;
+                    break;
+                }
+            }
+    }
+
+    for (let i = 0; i < matrix.length; i++ ) {
+        let currentCollumn = i; 
+        let currentCollumnSum = 0;
+        for (let y = 0; y < matrix.length; y++) {
+            currentCollumnSum += Number(matrix[y][currentCollumn])
+        }
+            if (firstSum != currentCollumnSum) {
+                isMagical = false;
+                break;
+            }
+    }
+    console.log(isMagical)
+}
+magicMatrices([[4, 5, 6],
+    [6, 5, 4],
+    [5, 5, 5]]);
+console.log(`\n --- \n`);
+magicMatrices([[11, 32, 45],
+    [21, 0, 1],
+    [21, 1, 1]]);
+console.log(`\n --- \n`);
+magicMatrices([[1, 0, 0],
+    [0, 0, 1],
+    [0, 1, 0]]);
