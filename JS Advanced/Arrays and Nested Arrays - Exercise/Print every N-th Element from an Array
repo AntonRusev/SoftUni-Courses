@@ -1,0 +1,30 @@
+function printElementOfArray(array, step) {
+
+    const newArr = [];
+    for (let i = 0; i < array.length; i++) {
+        if (i % step == 0) {
+            newArr.push(array[i]);
+        }
+    }
+    return newArr;
+}
+printElementOfArray(['5',
+    '20',
+    '31',
+    '4',
+    '20'],
+    2);
+console.log(`\n --- \n`);
+printElementOfArray(['dsa',
+    'asd',
+    'test',
+    'tset'],
+    2
+);
+console.log(`\n --- \n`);
+printElementOfArray(['1',
+    '2',
+    '3',
+    '4',
+    '5'],
+    6);
