@@ -1,0 +1,33 @@
+function extractFromArray(array) {
+    let biggestNum = array[0];
+    const newArr = [];
+    
+    for (let element of array) {
+        if (element >= biggestNum) {
+            newArr.push(element);
+            biggestNum = element;
+        }
+    }
+    return newArr;
+}
+extractFromArray([1, 
+    3, 
+    8, 
+    4, 
+    10, 
+    12, 
+    3, 
+    2, 
+    24]);
+console.log(`\n --- \n`);
+extractFromArray([1, 
+    2, 
+    3,
+    4]);
+console.log(`\n --- \n`);
+extractFromArray([20, 
+    3, 
+    2, 
+    15,
+    6, 
+    1]);
