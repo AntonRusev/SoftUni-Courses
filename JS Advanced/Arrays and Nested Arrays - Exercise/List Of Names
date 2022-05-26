@@ -1,0 +1,10 @@
+function listOfNames(array) {
+    array.sort((a, b) => a.localeCompare(b));
+    let order = 0;
+
+    for (element of array) {
+        order++; 
+        console.log(`${order}.${element}`)
+    }
+}
+listOfNames(["John", "Bob", "Christina", "Ema"]);
