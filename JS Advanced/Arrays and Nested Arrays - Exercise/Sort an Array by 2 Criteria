@@ -1,0 +1,30 @@
+function sortByTwoCriteria(array) {
+
+    array.sort(twoCriteria);
+    console.log(array.join('\n'));
+
+    function twoCriteria(a , b) {
+        if (a.length == b.length){
+            return a.localeCompare(b);
+        } else if (a.length > b.length) {
+            return 1;
+        } else if (b.length > a.length){
+            return -1;
+        }
+    }
+}
+sortByTwoCriteria(['alpha', 
+'beta', 
+'gamma']);
+console.log(`\n --- \n`);
+sortByTwoCriteria(['Isacc', 
+'Theodor', 
+'Jack', 
+'Harrison', 
+'George']
+);
+console.log(`\n --- \n`);
+sortByTwoCriteria(['test', 
+'Deny', 
+'omen', 
+'Default']);
