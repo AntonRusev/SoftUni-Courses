@@ -1,0 +1,28 @@
+function addAndRemoveElements(array) {
+    const newArr = [];
+    let number = 0;
+    for (let i = 0; i < array.length; i++) {
+        number++;
+        if (array[i] == 'add') {
+            newArr.push(number);
+        } else {
+            newArr.pop();
+        }
+    }
+    console.log(newArr.length != 0 ? newArr.join('\n') : 'Empty');
+}
+addAndRemoveElements(['add', 
+'add', 
+'add', 
+'add']
+);
+console.log(`\n --- \n`);
+addAndRemoveElements(['add', 
+'add', 
+'remove', 
+'add', 
+'add']);
+console.log(`\n --- \n`);
+addAndRemoveElements(['remove', 
+'remove', 
+'remove']);
