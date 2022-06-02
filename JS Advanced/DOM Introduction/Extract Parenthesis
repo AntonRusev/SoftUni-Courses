@@ -1,0 +1,28 @@
+function extract(content) {
+    const text = document.getElementById(content).textContent;
+    const pattern = /\(.+?\)/g;
+    const match = text.match(pattern);
+    let result = ''
+    
+    for (const element of match) {
+        element = element.slice(1, -1);
+        result += element + '; ';
+    }
+    return result;
+}
+
+Template:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Extract Parenthesis</title>
+</head>
+<body>
+<p id="content">
+    The Rose Valley (Bulgaria) is located just south of the Balkan Mountains (Kazanlak).The most common oil-bearing rose found in the valley is the pink-petaled Damask rose (Rosa damascena Mill).
+</p>
+<button onclick="extract('content')">Extract</button>
+<script src="ExtractParenthesis.js"></script>
+</body>
+</html>
