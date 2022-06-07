@@ -1,0 +1,17 @@
+function create(words) {
+   const result = document.getElementById('content');
+   
+   for (let word of words) {
+      const div = document.createElement('div');
+      const p = document.createElement('p');
+      p.textContent = word;
+      p.style.display = 'none';
+      div.appendChild(p);
+      div.addEventListener('click', onClick);
+      result.appendChild(div);
+   }
+   function onClick(event){
+      const child = event.target.children[0];
+      child.style.display = ''
+   }
+}
