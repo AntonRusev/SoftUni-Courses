@@ -1,0 +1,67 @@
+function attachEventsListeners() {
+    const buttons = Array.from(document.querySelectorAll('input[type = "button"]'))
+    .forEach(x => x.addEventListener('click', convertFunc));
+    const textFields = Array.from(document.querySelectorAll('input[type = "text"]'));
+
+    const values = {
+        days : 1,
+        hours : 24,
+        minutes : 1440,
+        seconds : 86400
+    }
+
+    function convertFunc(event){
+        const parent = event.target.parentElement;
+        const value = Number(parent.querySelectorAll('input[type="text"]')[0].value);
+        const originalId = parent.querySelector('input[type="text"]').id;
+        const equalize = value / values[originalId]
+
+        for (let textField of textFields) {
+            const id = textField.id;             
+            textField.value = equalize * values[id];
+        }
+    }
+}
+
+Template:
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Time Converter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body onload="attachEventsListeners()">
+    <main>
+        <h1>Time Converter</h1>
+        <div>
+            <label for="days">Days: </label>
+            <input type="text" id="days">
+            <input id="daysBtn" type="button" value="Convert">
+        </div>
+        <div>
+            <label for="hours">Hours: </label>
+            <input type="text" id="hours">
+            <input id="hoursBtn" type="button" value="Convert">
+        </div>
+        <div>
+            <label for="minutes">Minutes: </label>
+            <input type="text" id="minutes">
+            <input id="minutesBtn" type="button" value="Convert">
+        </div>
+        <div>
+            <label for="seconds">Seconds: </label>
+            <input type="text" id="seconds">
+            <input id="secondsBtn" type="button" value="Convert">
+        </div>
+    </main>
+</body>
+
+<script src="solution.js"></script>
+
+</html>
