@@ -1,0 +1,126 @@
+function solve() {
+    const textFields = Array.from(document.querySelectorAll('textarea'));
+    const output = textFields[1]
+    const [generate, buy] = Array.from(document.querySelectorAll('button'));
+      generate.addEventListener('click', generateFn);
+      buy.addEventListener('click', buyFn);
+    let totalSum = 0;
+    let avrgFactor = 0;
+    const furnitureArr = [];
+    
+  
+    function generateFn(event) {
+      const input = JSON.parse(document.querySelector('textarea').value);
+      for (element of input) {  
+        const tr = document.createElement('tr');
+        const td1 = document.createElement('td');
+        const img = document.createElement('img');
+        img.src = element.img;
+        td1.appendChild(img);
+        tr.appendChild(td1);
+        const td2 = document.createElement('td');
+        const p1 = document.createElement('p');
+        p1.textContent = element.name;
+        td2.appendChild(p1);
+        tr.appendChild(td2);
+        const td3 = document.createElement('td');
+        const p2 = document.createElement('p');
+        p2.textContent = Number(element.price);
+        td3.appendChild(p2);
+        tr.appendChild(td3);
+        const td4 = document.createElement('td');
+        const p3 = document.createElement('p');
+        p3.textContent = Number(element.decFactor);
+        td4.appendChild(p3);
+        tr.appendChild(td4);
+        const td5 = document.createElement('td');
+        const checkbox = document.createElement('input');
+        checkbox.setAttribute('type', 'checkbox');
+        td5.appendChild(checkbox);
+        tr.appendChild(td5);
+        const tbody = document.querySelector('tbody');
+        tbody.appendChild(tr);
+      }
+    }
+    function buyFn(event) {
+        const checkboxes = Array.from(document.querySelectorAll('input[type="checkbox"]'));
+        for (const checkbox of checkboxes) {
+            if (checkbox.checked == true) {
+              const parent = checkbox.parentElement.parentElement;
+              furnitureArr.push(parent.children[1].textContent);
+              totalSum += Number(parent.children[2].textContent);
+              avrgFactor += Number(parent.children[3].textContent);
+            }
+        }
+        output.value += `Bought furniture: ${furnitureArr.join(', ')}\r\n`;
+        output.value += `Total price: ${totalSum.toFixed(2)}\r\n`;
+        output.value += `Average decoration factor: ${avrgFactor / furnitureArr.length}`;
+    }
+}
+
+Template:
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="template.css">
+    <title>FURNITURE</title>
+</head>
+
+<body onload="solve()">
+    <div id="container">
+        <div id="exercise">
+            <h1>Furniture List</h1>
+            <textarea rows="5" cols="50"></textarea>
+            <button>Generate</button>
+
+            <div class="wrapper">
+                <div class="card-wrapper">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Image</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">Decoration factor</th>
+                                        <th scope="col">Mark</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <img
+                                                src="https://www.lidl-shop.nl/media/fcf868f9526b38d0b0a43cc2ace72b80.jpeg">
+                                        </td>
+                                        <td>
+                                            <p>Office chair</p>
+                                        </td>
+                                        <td>
+                                            <p>160</p>
+                                        </td>
+                                        <td>
+                                            <p>0.5</p>
+                                        </td>
+                                        <td>
+                                            <input type="checkbox" disabled />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <textarea rows="4" cols="50" disabled></textarea>
+            <button>Buy</button>
+        </div>
+    </div>
+    <script src="solution.js"></script>
+</body>
+
+</html>
