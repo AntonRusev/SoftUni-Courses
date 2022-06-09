@@ -1,0 +1,40 @@
+function cars(input) {
+    const list = {};
+    let commands = {
+        create,
+        set,
+        print
+    };
+
+    for (let element of input) {
+        const [command, value1, value2, value3] = element.split(' ');
+        let func = commands[command];
+        func(value1, value2, value3);
+    }
+
+    function create(name, inherit, inheritValue){
+        if (inherit != undefined) {
+            list[name] = Object.create(list[inheritValue]);
+        } else { 
+            list[name] = {};
+        }
+    }
+    function set(name, key, value){
+        list[name][key] = value;
+    }
+    function print(name){
+        const arr = [];
+        for (let key in list[name] ){
+            arr.push(`${key}:${list[name][key]}`);
+        }
+        console.log(arr.join(','));
+    }
+
+}
+cars(['create c1',
+'create c2 inherit c1',
+'set c1 color red',
+'set c2 model new',
+'print c1',
+'print c2']
+);
