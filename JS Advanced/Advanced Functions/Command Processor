@@ -1,0 +1,30 @@
+function solution() {
+    let string = '';
+    return {
+        append,
+        removeStart,
+        removeEnd,
+        print
+    }
+    function append(input){
+        return string += input;
+    }
+    function removeStart(input) {
+        input = Number(input);
+        return string = string.slice(input);
+    }
+    function removeEnd(input) {
+        input = Number(input);
+        return string = string.slice(0, -input);
+    }
+    function print() {
+        return console.log(string);
+    }
+}
+let firstZeroTest = solution();
+
+firstZeroTest.append('hello');
+firstZeroTest.append('again');
+firstZeroTest.removeStart(3);
+firstZeroTest.removeEnd(4);
+firstZeroTest.print();
