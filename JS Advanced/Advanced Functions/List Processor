@@ -1,0 +1,17 @@
+function listProcessor(input) {
+    let collection = [];
+    for (let element of input) {
+        const [command, value] = element.split(' ');
+            if (command == 'add') {
+                collection.push(value);
+            } else if (command == 'remove'){
+                let result = collection.filter(x => x!== value);
+                collection = result;
+            } else {
+            console.log(collection.join(','));
+        }
+    }
+}
+listProcessor(['add hello', 'add again', 'remove hello', 'add again', 'print']);
+console.log(`\n --- \n`);
+listProcessor(['add pesho', 'add george', 'add peter', 'remove peter','print']);
