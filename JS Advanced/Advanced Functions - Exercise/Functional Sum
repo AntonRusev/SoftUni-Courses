@@ -1,0 +1,12 @@
+function add(input){
+    const nested = function (num) {
+        input += num;
+        return nested;
+    }
+    nested.toString = function () {
+        return input;
+    };
+
+    return nested;
+}
+console.log(add(1)(6)(-3).toString());
