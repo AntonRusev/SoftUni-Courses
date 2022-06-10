@@ -1,0 +1,135 @@
+function solve() {
+    document.getElementById('add').addEventListener('click', addTask);
+
+    const taskField = document.getElementById('task');
+    const descriptionField = document.getElementById('description');
+    const dateField = document.getElementById('date');
+    const protoParent = Array.from(document.getElementsByClassName('wrapper'))[0];
+
+    function addTask(event) {
+        event.preventDefault();
+        if (dateField.value.length != 0 && taskField.value.length != 0 && descriptionField.value.length != 0) {
+            articleGenerator();
+        }
+    }
+
+    function articleGenerator() {
+        const article = document.createElement('article');
+        const h3 = document.createElement('h3');
+            h3.textContent = taskField.value;
+            article.appendChild(h3);
+        const p1 = document.createElement('p');
+            p1.textContent = `Description: ${descriptionField.value}`;
+            article.appendChild(p1);
+        const p2 = document.createElement('p');
+            p2.textContent = `Due Date: ${dateField.value}`;
+            article.appendChild(p2);
+        const div = document.createElement('div');
+            div.classList.add('flex');
+                const greenBtn = document.createElement('button');
+                greenBtn.textContent = 'Start';
+                greenBtn.classList.add('green');
+                greenBtn.addEventListener('click', startTask);
+                div.appendChild(greenBtn);
+                const redBtn = document.createElement('button');
+                redBtn.textContent = 'Delete';
+                redBtn.classList.add('red');
+                redBtn.addEventListener('click', deleteTask);
+                div.appendChild(redBtn);
+                const orangeBtn = document.createElement('button');
+                orangeBtn.textContent = 'Finish';
+                orangeBtn.classList.add('orange');
+                orangeBtn.addEventListener('click', finishTask);
+                
+        article.appendChild(div);
+        protoParent.children[1].children[1].appendChild(article);
+
+        taskField.value = '';
+        descriptionField.value = '';
+        dateField.value = '';
+
+
+        function startTask(event) {
+            const block = event.target.parentElement.parentElement
+            protoParent.children[2].children[1].appendChild(block);
+            const parent = event.target.parentElement;
+            parent.appendChild(orangeBtn);
+            event.target.remove();         
+        }
+        function deleteTask(event) {
+            const block = event.target.parentElement.parentElement;
+            block.remove();
+        }
+        function finishTask(event) {
+            const block = event.target.parentElement.parentElement;
+            protoParent.children[3].children[1].appendChild(block);
+            event.target.parentElement.remove();
+        }
+    }
+}
+
+Template:
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <script src="./app.js"></script>
+    <script>window.addEventListener('DOMContentLoaded', () => {
+            solve();
+        });</script>
+    <title>Document</title>
+</head>
+
+<body>
+    <main>
+        <div class="wrapper">
+            <section>
+                <div>
+                    <h1 class="gray">Add Task</h1>
+                </div>
+                <div>
+                    <form action="">
+                        <label for="task">Task</label><br>
+                        <input type="text" id="task" name="task" placeholder="JS Advanced Exam"><br>
+                        <label for="description">Description</label><br>
+                        <textarea id="description" placeholder="Lern DOM, Unit Testing and Classes"></textarea>
+                        <label for="date">Due Date</label><br>
+                        <input type="text" id="date" name="date" placeholder="2020.04.14"><br>
+                        <button id="add">Add</button>
+                    </form>
+                </div>
+            </section>
+
+            <section>
+                <div>
+                    <h1 class="orange">Open</h1>
+                </div>
+                <div>
+                    
+                </div>
+            </section>
+            <section>
+                <div>
+                    <h1 class="yellow">In Progress</h1>
+                </div>
+                <div id="in-progress">
+                    
+                </div>
+            </section>
+            <section>
+                <div>
+                    <h1 class="green">Complete</h1>
+                </div>
+                <div>
+                    
+                </div>
+            </section>
+        </div>
+    </main>
+</body>
+
+</html>
