@@ -1,0 +1,18 @@
+function argumentInfo(...params){
+    const types = {};
+    for (let element of params) {
+        const type = typeof element;
+            if (!types.hasOwnProperty(type)){
+                types[type] = 1;
+            } else {
+                types[type]++;
+            }
+        console.log(`${type}: ${element}`);
+    }
+    let sorted = Object.entries(types).sort((a, b) => b[1] - a[1] );
+    
+    for (element of sorted) {
+        console.log(`${element[0]} = ${types[element[0]]}`);
+    }
+}
+argumentInfo({ name: 'bob'}, 3.333, 9.999);
