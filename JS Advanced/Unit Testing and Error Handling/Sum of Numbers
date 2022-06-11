@@ -1,0 +1,32 @@
+const { sum } = require('./sumOfNumbers');
+const { expect } = require('chai');
+
+describe ('Test Sum of Numbers', () => {
+    it('sums properly', () => {
+        expect(sum([1,2,3])).to.equal(6, 'should equal 6');
+    });
+    it('works with nums as strings', () => {
+        expect(sum(['1','2','3'])).to.equal(6, 'does not convert to Number');
+    });
+    it('returns NaN', () => {
+        expect(sum(['one', 2, 3])).to.be.NaN;
+    });
+    it('works with negative', () => {
+        expect(sum([-1, -2, 4])).to.equal(1, 'does not work with negative');
+    });
+    it('empty array', () => {
+        expect(sum([])).to.equal(0, 'does not work with empty array');
+    });
+});
+
+Template:
+
+function sum(arr) {
+    let sum = 0;
+    for (let num of arr){
+        sum += Number(num);
+    }
+    return sum;
+}
+
+module.exports = { sum };
