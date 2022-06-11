@@ -1,0 +1,40 @@
+const { isSymmetric } = require('./checkForSymmetry');
+const { expect } = require('chai');
+
+describe ('Tests for Check for Symmetry', () => {
+    it('works with even numbered symmetric array', () => {
+        expect(isSymmetric([1, 2, 2, 1])).to.be.true;
+    });
+    it('works with odd numbered symmetric array ', () => {
+        expect(isSymmetric([1, 2, 1])).to.be.true;
+    });
+    it('parses numbers from strings', () => {
+        expect(isSymmetric(['1', '2', '2', '1'])).to.be.true;
+    });
+    it('does not work with strings', () => {
+        expect(isSymmetric(['one', 2, 2, 1])).to.be.false;
+    });
+    it('is symmetric', () => {
+        expect(isSymmetric([1, 2, 3])).to.be.false;
+    });
+    it('does not works with strings', () => {
+        expect(isSymmetric('a')).to.be.false;
+    });
+    it('does not work with mismatched data', () => {
+        expect(isSymmetric(['1', '2', '2', 1])).to.be.false;
+    });
+});
+
+Template:
+
+function isSymmetric(arr) {
+    if (!Array.isArray(arr)){
+        return false; // Non-arrays are non-symmetric
+    }
+    let reversed = arr.slice(0).reverse(); // Clone and reverse
+    let equal = (JSON.stringify(arr) == JSON.stringify(reversed));
+    return equal;
+}
+console.log(isSymmetric([1]));
+
+module.exports = { isSymmetric };
