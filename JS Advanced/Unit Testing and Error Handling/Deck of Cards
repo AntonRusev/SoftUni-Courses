@@ -1,0 +1,49 @@
+function deckOfCards(input) {
+    let result = [];
+    let hasInvalid = false;
+
+    for (const element of input) {
+        const face = element.slice(0, element.length - 1);
+        const suit = element.slice(-1);
+        try {
+            result.push(createCard(face, suit));
+        } catch(error) {
+            console.log(`Invalid card: ${face}${suit}`);
+            hasInvalid = true;
+        }
+        
+    }
+
+
+    function createCard(face, suit) {
+        const faces = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+    
+        const suits = {
+            'C': '\u2663',
+            'D': '\u2666',
+            'H': '\u2665 ',
+            'S': '\u2660 '
+        }
+    
+        if (faces.includes(face) == false) {
+            throw Error('Error');
+        }
+        if (suits.hasOwnProperty(suit) == false) {
+            throw Error('Error');
+        }
+        const result = {
+            face,
+            suit : suits[suit],
+            toString() {
+                return this.face + this.suit;
+            }
+        }
+        return result;
+    }
+
+    hasInvalid ? '' : console.log(result.join(' '));
+
+}
+deckOfCards(['AS', '10D', 'KH', '2C']);
+console.log(`\n --- \n`);
+deckOfCards(['5S', '3D', 'QD', '1C']);
