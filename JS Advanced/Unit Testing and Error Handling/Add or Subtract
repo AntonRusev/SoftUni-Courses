@@ -1,0 +1,41 @@
+const { createCalculator } = require('./addOrSubtract');
+const { expect } = require('chai');
+
+describe ('Tests for Add / Subtract', () => {
+    it('has type object', () => {
+        expect(typeof createCalculator()).to.equal('object');
+    })
+    it('has add, subtract and get functions in it', () => {
+        expect(createCalculator()).to.have.property('add');
+        expect(createCalculator()).to.have.property('subtract');
+        expect(createCalculator()).to.have.property('get');
+    })
+    it('function add works', () => {
+        let func = createCalculator();
+        func.add('10');
+        expect(func.get()).to.equal(10);
+    })
+    it('function subtract works', () => {
+        let func = createCalculator();
+        func.subtract(7)
+        expect(func.get()).to.equal(-7);
+    })
+    it('value can not be changed from outside', () => {
+        let func = createCalculator();
+        func.value = 10;
+        expect(func.get).to.not.equal(10);
+    })
+})
+
+Template:
+
+function createCalculator() {
+    let value = 0;
+    return {
+        add: function(num) { value += Number(num); },
+        subtract: function(num) { value -= Number(num); },
+        get: function() { return value; }
+    }
+}
+
+module.exports = { createCalculator };
