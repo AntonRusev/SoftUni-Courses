@@ -1,0 +1,37 @@
+function validate() {
+    const emailField = document.getElementById('email');
+    const emailRegex = /[a-z]+@[a-z]+.[a-z]+/;
+
+    emailField.addEventListener('change', validityCheck);
+
+    function validityCheck(event) {
+        if (emailRegex.test(emailField.value)){
+            emailField.classList.remove('error');
+        } else {
+            emailField.classList.add('error');
+        }
+    }
+}
+
+Template:
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Focus</title>
+    <style>
+        .error {
+            border: 2px solid red;
+        }
+    </style>
+    <script src="app.js"></script>
+</head>
+
+<body onload="validate()">
+    <label for="email">Enter email:</label>
+    <input id="email" type="text" />
+</body>
+
+</html>
