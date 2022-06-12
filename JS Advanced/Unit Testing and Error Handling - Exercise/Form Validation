@@ -1,0 +1,107 @@
+function validate() {
+    let failedFields = [];
+    const usernameField = document.getElementById('username');
+    const emailField = document.getElementById('email');
+    const passwordField = document.getElementById('password');
+    const confirmPassField = document.getElementById('confirm-password');
+    const isCompanyBtn = document.getElementById('company');
+        isCompanyBtn.addEventListener('change', isChecked);
+    const submitBtn = document.getElementById('submit');
+        submitBtn.addEventListener('click', submitFunc);
+    const companyNumbField = document.getElementById('companyNumber');
+    const valid = document.getElementById('valid');
+
+    function submitFunc(event) {
+
+        event.preventDefault();
+
+        failedFields.forEach(x => x.style.border = 'none');
+        failedFields = [];
+
+        if ((/^[a-zA-Z0-9]{3,20}$/).test(usernameField.value) == false) {
+            failedFields.push(usernameField);
+        }
+        if ((/^[\w+]{5,15}$/).test(passwordField.value) == false || passwordField.value !== confirmPassField.value) {
+            failedFields.push(passwordField);
+            failedFields.push(confirmPassField);
+        }
+        if ((/^[^@.]+@[^@]*\.[^@]*$/).test(emailField.value) == false) {
+            failedFields.push(emailField);
+        }
+        if ((/^[1-9][0-9][0-9][0-9]$/).test(companyNumbField.value) == false && isCompanyBtn.checked ) {
+            failedFields.push(companyNumbField);
+        }
+
+        failedFields.forEach(x => x.style.borderColor = 'red');
+
+        if (failedFields.length != 0) {
+            valid.style.display = 'none';
+        } else {
+            valid.style.display = 'block';
+        }
+
+    }
+
+    function isChecked(){
+        if (isCompanyBtn.checked) {
+            document.getElementById('companyInfo').style.display = '';
+        } else {
+            document.getElementById('companyInfo').style.display = 'none';
+        }
+    }
+}
+
+Template:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Validation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="wrapper">
+    <form id="registerForm">
+        <fieldset id="userInfo">
+            <legend>User Information:</legend>
+            <div class="pairContainer">
+                <label for="username">Userame:</label>
+                <input id="username" type="text">
+            </div>
+            <div class="pairContainer">
+                <label for="email">Email:</label>
+                <input id="email" type="text">
+            </div>
+            <div class="pairContainer">
+                <label for="password">Password:</label>
+                <input id="password" type="password">
+            </div>
+            <div class="pairContainer">
+                <label for="confirm-password">Confirm Password:</label>
+                <input id="confirm-password" type="password">
+            </div>
+            <div class="pairContainer">
+                <label for="company">Is Company?</label>
+                <input id="company" type="checkbox">
+            </div>
+        </fieldset>
+        <fieldset id="companyInfo" style="display: none;">
+            <legend>Company Informaion:</legend>
+            <div class="pairContainer">
+                <label for="companyNumber">Company Number</label>
+                <input id="companyNumber" type="number">
+            </div>
+        </fieldset>
+        <button id="submit">Submit</button>
+    </form>
+    <div id="valid" style="display: none">Valid</div>
+</div>
+<script src="formValidation.js"></script>
+<script>
+    window.onload = function(){
+        validate();
+    }
+</script>
+</body>
+</html>
