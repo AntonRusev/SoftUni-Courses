@@ -1,0 +1,34 @@
+const { isOddOrEven } = require('./evenOrOdd');
+const { expect } = require('chai');
+
+describe('Tests for Even or Odd', () => {
+    it('works only with a string', () => {
+        expect(isOddOrEven(0)).to.be.undefined;
+        expect(isOddOrEven([])).to.be.undefined;
+        expect(isOddOrEven({})).to.be.undefined;
+    })
+    it('works with odd length', () => {
+        expect(isOddOrEven('aba')).to.equal('odd');
+    })
+    it('works with even length', () => {
+        expect(isOddOrEven('abab')).to.equal('even');
+    })
+    it('works with more than one word in the string', () => {
+        expect(isOddOrEven('aba baba')).to.equal('even')
+    })
+})
+
+Template:
+
+function isOddOrEven(string) {
+    if (typeof(string) !== 'string') {
+        return undefined;
+    }
+    if (string.length % 2 === 0) {
+        return "even";
+    }
+
+    return "odd";
+}
+
+module.exports = { isOddOrEven };
