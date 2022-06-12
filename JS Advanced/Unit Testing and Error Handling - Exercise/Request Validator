@@ -1,0 +1,55 @@
+function requestValidator(obj){
+    const validMethods = ['GET', 'POST', 'CONNECT', 'DELETE'];
+    const validVersions = ['HTTP/0.9', 'HTTP/1.0', 'HTTP/1.1', 'HTTP/2.0'];
+    const uriRegex = /^[\w.]+$/;
+    const messageRegex = /^[^<>\\&'"]*$/;
+
+    if (validMethods.includes(obj.method) == false) {
+        throw Error('Invalid request header: Invalid Method');
+    }
+    if (!obj.uri) {
+        throw Error('Invalid request header: Invalid URI')
+    }
+        
+    if (obj.uri.length == 0 || (obj.uri != '*' && uriRegex.test(obj.uri) == false)) {
+        throw Error('Invalid request header: Invalid URI');
+    }
+
+    if (validVersions.includes(obj.version) == false) {
+        throw Error('Invalid request header: Invalid Version');
+    }
+    if (obj.hasOwnProperty('message') == false) {
+        throw Error('Invalid request header: Invalid Message');
+    }
+    if (obj.message.length > 0 && messageRegex.test(obj.message) == false) {
+        throw Error('Invalid request header: Invalid Message');
+    }
+
+    return obj;
+}
+requestValidator({
+    method: 'GET',
+    uri: 'svn.public.catalog',
+    version: 'HTTP/1.1',
+    message: ''
+  });
+console.log(`\n --- \n`);
+requestValidator({
+    method: 'OPTIONS',
+    uri: 'git.master',
+    version: 'HTTP/1.1',
+    message: '-recursive'
+  });
+console.log(`\n --- \n`);
+requestValidator({
+    method: 'POST',
+    uri: 'home.bash',
+    message: 'rm -rf /*'
+  });
+  console.log(`\n --- \n`);
+requestValidator({
+    method: 'GET',
+    uri: 'svn.public.catalog',
+    version: 'HTTP/1.1',
+    message: ''
+});
