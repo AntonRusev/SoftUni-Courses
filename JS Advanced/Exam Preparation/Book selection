@@ -1,0 +1,89 @@
+const { bookSelection } = require('./solution');
+const {expect} = require('chai');
+
+describe('Tests for Book-selection', () => {
+    describe('Tests for isGenreSuitable', () => {
+        it ('works properly with correct params returning suitable', () => {
+            expect(bookSelection.isGenreSuitable("Thriller", 18)).to.equal(`Those books are suitable`);
+            expect(bookSelection.isGenreSuitable("Horror", 18)).to.equal(`Those books are suitable`);
+            expect(bookSelection.isGenreSuitable("a", 18)).to.equal(`Those books are suitable`);
+            expect(bookSelection.isGenreSuitable("a", 11)).to.equal(`Those books are suitable`);
+        });
+        it ('works properly with correct params returning not suitable', () => {
+            expect(bookSelection.isGenreSuitable("Thriller", 11)).to.equal(`Books with Thriller genre are not suitable for kids at 11 age`);
+            expect(bookSelection.isGenreSuitable("Horror", 11)).to.equal(`Books with Horror genre are not suitable for kids at 11 age`);
+        });
+        it ('works properly with correct params returning not suitable, edge cases', () => {
+            expect(bookSelection.isGenreSuitable("Thriller", 12)).to.equal(`Books with Thriller genre are not suitable for kids at 12 age`);
+            expect(bookSelection.isGenreSuitable("Horror", 12)).to.equal(`Books with Horror genre are not suitable for kids at 12 age`);
+        });
+    });
+    describe('Tests for isItAffordable', () => {
+        it ('works properly with correct params', () => {
+            expect(bookSelection.isItAffordable(12, 12)).to.equal(`Book bought. You have 0$ left`);
+            expect(bookSelection.isItAffordable(11, 12)).to.equal(`Book bought. You have 1$ left`);
+            expect(bookSelection.isItAffordable(12, 11)).to.equal(`You don't have enough money`);
+
+        });
+        it ('does not work with input different than number', () => {
+            expect(() => bookSelection.isItAffordable('11', 12)).to.throw();
+            expect(() => bookSelection.isItAffordable(11, '12')).to.throw();
+            expect(() => bookSelection.isItAffordable(11, [12])).to.throw();
+            expect(() => bookSelection.isItAffordable([11], 12)).to.throw();
+        });
+    });
+    describe('Tests for suitableTitles', () => {
+        it ('throws error for invalid input', () => {
+            expect(() => bookSelection.suitableTitles("Thriller", '12')).to.throw();
+            expect(() => bookSelection.suitableTitles(['book'], ['genre'])).to.throw();
+            expect(() => bookSelection.suitableTitles(['book'], 12)).to.throw();
+        });
+        it ('works properly with correct params', () => {
+            expect(bookSelection.suitableTitles([{ title: "The Da Vinci Code", genre: "Thriller" }], "Thriller" )).to.deep.equal(["The Da Vinci Code"]);
+            expect(bookSelection.suitableTitles([{ title: "something", genre: "Horror" },
+            { title: "somethingelse", genre: "Horror" },
+            { title: "some other", genre: "Thriller" }
+        ], "Horror" )).to.deep.equal(["something", "somethingelse"]);
+        });
+    });
+});
+
+Template:
+
+const bookSelection = {
+  isGenreSuitable(genre, age) {
+    if (age <= 12 && (genre === "Thriller" || genre === "Horror")) {
+      return `Books with ${genre} genre are not suitable for kids at ${age} age`;
+    } else {
+      return `Those books are suitable`;
+    }
+  },
+  isItAffordable(price, budget) {
+    if (typeof price !== "number" || typeof budget !== "number") {
+      throw new Error("Invalid input");
+    }
+
+    let result = budget - price;
+
+    if (result < 0) {
+      return "You don't have enough money";
+    } else {
+      return `Book bought. You have ${result}$ left`;
+    }
+  },
+  suitableTitles(array, wantedGenre) {
+    let resultArr = [];
+
+    if (!Array.isArray(array) || typeof wantedGenre !== "string") {
+      throw new Error("Invalid input");
+    }
+    array.map((obj) => {
+      if (obj.genre === wantedGenre) {
+        resultArr.push(obj.title);
+      }
+    });
+    return resultArr;
+  },
+};
+
+module.exports = { bookSelection }
