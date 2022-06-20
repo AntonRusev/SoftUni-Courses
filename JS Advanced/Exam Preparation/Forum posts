@@ -1,0 +1,128 @@
+window.addEventListener("load", solve);
+
+function solve() {
+
+  const postTitle = document.getElementById('post-title');
+  const postCategory = document.getElementById('post-category');
+  const postContent = document.getElementById('post-content');
+
+  const reviewList = document.getElementById('review-list');
+  const publishedList = document.getElementById('published-list');
+
+  const publishBtn = document.getElementById('publish-btn');
+  publishBtn.addEventListener('click', publish);
+  const clearBtn = document.getElementById('clear-btn')
+  clearBtn.addEventListener('click', clear);
+
+
+  function publish(event){
+    const titleText = postTitle.value;
+    const categoryText = postCategory.value;
+    const contentText = postContent.value; 
+
+    if (titleText == '' || categoryText == '' || contentText == 0) {
+      return;
+    }
+
+    const li = document.createElement('li');
+    li.className = 'rpost';
+    li.innerHTML = `
+    <article>
+    <h4>${titleText}</h4>
+    <p>Category: ${categoryText}</p>
+    <p>Content: ${contentText}</p>
+    </article>
+    <button class="action-btn edit">Edit</button>
+    <button class="action-btn approve">Approve</button>
+    `;
+    li.querySelector('.edit').addEventListener('click', edit);
+    li.querySelector('.approve').addEventListener('click', approve);
+
+    reviewList.appendChild(li);
+
+    postTitle.value = '';
+    postCategory.value = '';
+    postContent.value = ''
+
+    function edit(event) {
+      postTitle.value = titleText;
+      postCategory.value = categoryText;
+      postContent.value = contentText;
+      event.target.parentElement.remove()
+    }
+    function approve(event) {
+      li.querySelector('.edit').remove()
+      li.querySelector('.approve').remove()
+      publishedList.appendChild(li);
+    }
+  }
+  function clear(event){
+    publishedList.innerHTML = '';
+  }
+}
+
+Template:
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./style/css/styles.css" />
+  <title>Forum posts</title>
+</head>
+
+<body>
+
+  <body>
+    <div id="main-container">
+      <div id="left-container">
+
+        <div id="newPost" class="container">
+
+          <form class="newPostContent">
+            <h1>Add New Post</h1>
+            <input type="text" placeholder="Enter title here" id="post-title" />
+
+            <input type="text" placeholder="Enter category here" id="post-category" />
+
+            <textarea placeholder="Add content..." id="post-content"></textarea>
+
+            <button type="button" id="publish-btn">publish</button>
+          </form>
+        </div>
+      </div>
+
+      <div id="middle-container">
+
+        <div id="relatedPosts" class="container">
+
+          <div class="bar title-bar">
+            <h2>Posts for review:</h2>
+          </div>
+
+
+          <ul id="review-list">
+
+          </ul>
+
+        </div>
+        <div id="published-container">
+          <div class="container">
+            <div class="bar title-bar">
+              <h2>Uploaded posts:</h2>
+            </div>
+
+            <ul id="published-list">
+
+            </ul>
+
+            <button id="clear-btn">Clear</button>
+          </div>
+        </div>
+        <script src="./app.js"></script>
+  </body>
+
+</html>
