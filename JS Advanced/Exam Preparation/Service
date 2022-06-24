@@ -1,0 +1,147 @@
+window.addEventListener("load", solve);
+
+function solve() {
+  const productTypeField = document.getElementById('type-product');
+  const descriptionField = document.getElementById('description');
+  const clientNameField = document.getElementById('client-name');
+  const clientPhoneField = document.getElementById('client-phone');
+  const [sendFormBtn, clearBtn] = Array.from(document.querySelectorAll('button'));
+  sendFormBtn.addEventListener('click', sendForm);
+  clearBtn.addEventListener('click', clearOrders);
+
+  const recievedOrdersSection = document.getElementById('received-orders');
+  const completedOrdersSection = document.getElementById('completed-orders');
+
+
+  function sendForm(event) {
+    event.preventDefault();
+
+    if (descriptionField.value == '' || clientNameField.value == '' || clientPhoneField.value == '') {
+      return;
+    }
+
+    const divContainer = document.createElement('div');
+      divContainer.classList.add('container');
+
+    const h2 = document.createElement('h2');
+      h2.textContent = `Product type for repair: ${productTypeField.value}`;
+      divContainer.appendChild(h2);
+
+    const h3 = document.createElement('h3');
+      h3.textContent = `Client information: ${clientNameField.value}, ${clientPhoneField.value}`;
+      divContainer.appendChild(h3);
+
+    const h4 = document.createElement('h4');
+      h4.textContent = `Description of the problem: ${descriptionField.value}`;
+      divContainer.appendChild(h4);
+
+    const startBtn = document.createElement('button');
+      startBtn.textContent = `Start repair`;
+      startBtn.classList.add('start-btn');
+      startBtn.addEventListener('click', repairStart);
+      divContainer.appendChild(startBtn);
+
+    const finishBtn = document.createElement('button');
+      finishBtn.textContent = `Finish repair`;
+      finishBtn.classList.add('finish-btn');
+      finishBtn.addEventListener('click', repairFinish);
+      finishBtn.disabled = true;
+      divContainer.appendChild(finishBtn);
+
+    recievedOrdersSection.appendChild(divContainer);
+
+    descriptionField.value = '';
+    clientNameField.value = '';
+    clientPhoneField.value = '';
+
+
+
+      function repairStart(event) {
+        event.target.disabled = true;
+        finishBtn.disabled = false;
+      }
+      function repairFinish(event) {
+        startBtn.remove();
+        finishBtn.remove();
+        completedOrdersSection.appendChild(divContainer);
+      }
+
+  }
+  function clearOrders(event) {
+    const divArray = Array.from(event.target.parentElement.querySelectorAll('div'))
+    divArray.forEach(div => div.remove())
+  }
+}
+
+Template:
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services</title>
+    <link rel="stylesheet" href="./style/css/style.css">
+</head>
+
+<body>
+    <main>
+
+        <h1>Computer & Mobile Repair Services</h1>
+        <section id="main-container">
+
+            <div id="left">
+                <div id="head">
+                    <h1>Easy! Convenient! Quick!</h1>
+                    <p>Send the defective device directly to our Service Center.</p>
+                </div>
+            </div>
+
+            <div id="right">
+                <h1>Repair form </h1>
+                <form action="#">
+                    <label for="type-product">Product type:</label>
+                    <select id="type-product" name="type-product">
+                        <option value="Computer">Computer</option>
+                        <option value="Phone">Phone</option>
+                    </select>
+
+                    <label for="description">Description of the problem:</label>
+                    <textarea id="description" cols="20" placeholder="The device refuses to charge"></textarea>
+
+                    <label for="client-name">Client name:</label>
+                    <input type="text" id="client-name" name="client-name" placeholder="Petar Petrson">
+
+                    <label for="client-phone">Client phone:</label>
+                    <input type="text" id="client-phone" name="client-phone" placeholder="+359...">
+
+                    <button type="submit">Send form</button>
+                </form>
+            </div>
+        </section>
+
+        <div id="wrapper">
+
+            <section id="received-orders">
+                <h2>Received orders:</h2>
+                <img src="./style/img/slider_2.jpg">
+
+            </section>
+
+
+            <section id="completed-orders">
+                <h2>Completed orders:</h2>
+                <img src="./style/img/completed-order.png">
+                <button class="clear-btn">Clear</button>
+
+            </section>
+
+        </div>
+
+    </main>
+    <script src="app.js"></script>
+</body>
+
+</html>
