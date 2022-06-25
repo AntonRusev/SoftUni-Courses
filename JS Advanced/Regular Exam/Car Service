@@ -1,0 +1,86 @@
+const { carService } = require('./03. Car service_Resources');
+const { expect } = require('chai');
+
+describe('Tests for carService', () => {
+    describe('Tests for isItExpensive', () => {
+        it ('works properly', () => {
+            expect(carService.isItExpensive("Engine")).to.equal(`The issue with the car is more severe and it will cost more money`);
+            expect(carService.isItExpensive("Transmission")).to.equal(`The issue with the car is more severe and it will cost more money`);
+            expect(carService.isItExpensive("a")).to.equal(`The overall price will be a bit cheaper`);
+        });
+    });
+    describe('Tests for discount', () => {
+        it ('works properly', () => {
+            expect(carService.discount(3, 10)).to.equal('Discount applied! You saved 1.5$');
+            expect(carService.discount(7, 10)).to.equal('Discount applied! You saved 1.5$');
+            expect(carService.discount(8, 10)).to.equal('Discount applied! You saved 3$');
+            expect(carService.discount(2, 10)).to.equal('You cannot apply a discount');
+        });
+        it ('does not work with invalid input', () => {
+            expect(() => carService.discount('1', 1)).to.throw('Invalid input');
+            expect(() =>carService.discount(1, '1')).to.throw('Invalid input');
+            expect(() =>carService.discount(1)).to.throw('Invalid input');
+            expect(() =>carService.discount(1, [1])).to.throw('Invalid input');
+        });
+    });
+    describe('Tests for partsToBuy', () => {
+        it ('works properly', () => {
+            expect(carService.partsToBuy([{ part: "blowoff valve", price: 10 }, { part: "coil springs", price: 20 }], ["blowoff valve"])).to.equal(10);
+            expect(carService.partsToBuy([{ part: "blowoff valve", price: 10 }, { part: "coil springs", price: 20 }], ["blowoff valve", "coil springs"])).to.equal(30);
+            expect(() => carService.partsToBuy('parts', ["blowoff valve", "coil springs"])).to.throw("Invalid input");
+            expect(() => carService.partsToBuy([{ part: "blowoff valve", price: 10 }, { part: "coil springs", price: 20 }], 1)).to.throw("Invalid input");
+            expect(carService.partsToBuy([], ["blowoff valve"])).to.equal(0);
+        });
+    });
+});
+
+Template:
+
+const carService = {
+  isItExpensive(issue) {
+    if (issue === "Engine" || issue === "Transmission") {
+      return `The issue with the car is more severe and it will cost more money`;
+    } else {
+      return `The overall price will be a bit cheaper`;
+    }
+  },
+  discount(numberOfParts, totalPrice) {
+    if (typeof numberOfParts !== "number" || typeof totalPrice !== "number") {
+      throw new Error("Invalid input");
+    }
+
+    let discountPercentage = 0;
+
+    if (numberOfParts > 2 && numberOfParts <= 7) {
+      discountPercentage = 15;
+    } else if (numberOfParts > 7) {
+      discountPercentage = 30;
+    }
+
+    let result = (discountPercentage / 100) * totalPrice;
+
+    if (numberOfParts <= 2) {
+      return "You cannot apply a discount";
+    } else {
+      return `Discount applied! You saved ${result}$`;
+    }
+  },
+  partsToBuy(partsCatalog, neededParts) {
+    let totalSum = 0;
+
+    if (!Array.isArray(partsCatalog) || !Array.isArray(neededParts)) {
+      throw new Error("Invalid input");
+    }
+    neededParts.forEach((neededPart) => {
+      partsCatalog.map((obj) => {
+        if (obj.part === neededPart) {
+          totalSum += obj.price;
+        }
+      });
+    });
+
+    return totalSum;
+  },
+};
+
+module.exports = { carService };
