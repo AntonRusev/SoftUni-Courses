@@ -1,0 +1,68 @@
+class SmartHike {
+    constructor(username) {
+        this.username = username;
+        this.goals = {};
+        this.listOfHikes = [];
+        this.resources = 100;
+    }
+
+    addGoal(peak, altitude){
+        if (!this.goals.hasOwnProperty(peak)) {
+            this.goals[peak] = altitude;
+            return `You have successfully added a new goal - ${peak}`;
+        } else {
+            return `${peak} has already been added to your goals`;
+        }
+    }
+    hike(peak, time, difficultyLevel){
+        if (!this.goals.hasOwnProperty(peak)) {
+            throw new Error(`${peak} is not in your current goals`);
+        }
+        if (this.resources == 0) {
+            throw new Error(`You don't have enough resources to start the hike`);
+        }
+
+        const difference = this.resources - (time * 10);
+        if (difference < 0) {
+            return `You don't have enough resources to complete the hike`;
+        }
+
+        this.resources = difference;
+        const criteria = difficultyLevel
+        this.listOfHikes.push({peak, time, criteria});
+
+        return `You hiked ${peak} peak for ${time} hours and you have ${this.resources}% resources left`;
+
+    }
+    rest(time){
+        if (this.resources + time * 10 > 100) {
+            this.resources = 100;
+            return `Your resources are fully recharged. Time for hiking!`;
+        } else {
+            this.resources += time * 10;
+            return `You have rested for ${time} hours and gained ${time*10}% resources`;
+        }
+        
+    }
+    showRecord(criteria){
+        if (this.listOfHikes.length == 0) {
+            return `${this.username} has not done any hiking yet`;
+        }
+        const bestHike = this.listOfHikes.find(c => c.criteria == criteria);
+        
+        if (criteria != 'all') {
+            if (bestHike == undefined) {
+                return `${this.username} has not done any ${criteria} hiking yet`;
+            }
+            const sorted = this.listOfHikes.sort((a, b) => a.time - b.time);
+            return `${this.username}'s best ${criteria} hike is ${bestHike.peak} peak, for ${bestHike.time} hours`;
+        }
+        let result = [`All hiking records:`];
+        this.listOfHikes.forEach(a => {
+            result.push([`${this.username} hiked ${a.peak} for ${a.time} hours`]);
+        });
+        return result.join('\n');
+    }
+
+
+}
