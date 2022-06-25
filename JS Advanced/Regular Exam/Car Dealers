@@ -1,0 +1,184 @@
+window.addEventListener("load", solve);
+
+function solve() {
+  const tBody = document.getElementById('table-body');
+
+  const soldCarsList = document.getElementById('cars-list');
+
+  const profitField = document.getElementById('profit');
+  let totalProfit = 0;
+
+  const makeField = document.getElementById('make');
+  const modelField = document.getElementById('model');
+  const yearField = document.getElementById('year');
+  const fuelField = document.getElementById('fuel');
+  const originalCostField = document.getElementById('original-cost');
+  const sellingPriceField = document.getElementById('selling-price');
+
+  const publishBtn = document.getElementById('publish');
+  publishBtn.addEventListener('click', publish);
+
+
+  function publish(event) {
+    event.preventDefault();
+
+    const make = makeField.value;
+    const model = modelField.value;
+    const year = yearField.value;
+    const fuel = fuelField.value;
+    const originalCost = originalCostField.value;
+    const sellingPrice = sellingPriceField.value;
+
+    if (make == '' || model == '' || year == '' || fuel == '' || originalCost == '' || sellingPrice == '') {
+      return;
+    }
+    if (Number(originalCost) > Number(sellingPrice)) {
+      return;
+    }
+
+    const tr = document.createElement('tr');
+    tr.classList.add('row');
+    tr.innerHTML = `
+    <td>${make}</td>
+    <td>${model}</td>
+    <td>${year}</td>
+    <td>${fuel}</td>
+    <td>${originalCost}</td>
+    <td>${sellingPrice}</td>
+    <td>
+    <button class="action-btn edit">Edit</button>
+    <button class="action-btn sell">Sell</button>
+    </td>
+    `;
+    tr.querySelector('.edit').addEventListener('click', edit);
+    tr.querySelector('.sell').addEventListener('click', sell);
+
+    tBody.appendChild(tr);
+
+    makeField.value = '';
+    modelField.value = '';
+    yearField.value = '';
+    fuelField.value = '';
+    originalCostField.value = '';
+    sellingPriceField.value = '';
+
+    function edit(event){
+      // console.log(event.target.parentElement.parentElement)
+      tr.remove();
+      makeField.value = make;
+      modelField.value = model;
+      yearField.value = year;
+      fuelField.value = fuel;
+      originalCostField.value = originalCost;
+      sellingPriceField.value = sellingPrice;
+    }
+    function sell(event){
+      totalProfit += Number(sellingPrice) - Number(originalCost);
+      profitField.textContent = totalProfit.toFixed(2);
+
+      const li = document.createElement('li');
+      li.classList.add('each-list');
+      li.innerHTML = `
+    <span>${make} ${model}</span>
+    <span>${year}</span>
+    <span>${Number(sellingPrice) - Number(originalCost)}</span>
+    `;
+    soldCarsList.appendChild(li);      
+    tr.remove()
+    }
+  }
+}
+
+Template:
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Online Car Magazine</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="form-wrapper">
+        <form>
+          <h1>Create offer</h1>
+
+          <fieldset>
+            <legend><span class="number">1</span> Car Details</legend>
+
+            <label for="make">Make:</label>
+            <input type="text" id="make" name="make" />
+
+            <label for="model">Model:</label>
+            <input type="text" id="model" name="model" />
+
+            <label for="year">Production year:</label>
+            <input type="number" id="year" min="1990" max="2022" step="1" value="2017" />
+            
+            <label for="fuel">Fuel type:</label>
+            <select id="fuel" name="fuel" >
+              <option value="petrol">Petrol</option>
+              <option value="diesel">Diesel</option>
+              <option value="hybrid">Hybrid</option>
+              <option value="electric">Electric</option>
+            </select>
+          
+            <legend><span class="number">2</span> Price</legend>
+
+            <label for="original-cost">Original cost:</label>
+            <input type="number" id="original-cost" step="10" />
+
+            <label for="selling-price">Selling price:</label>
+            <input type="number" id="selling-price" step="10" />
+
+          <button id="publish" type="submit">Publish</button>
+        </form>
+      </div>
+
+      <div class="table-wrapper">
+        <section>
+            <div class="tbl-header">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Make</th>
+                    <th>Model</th>
+                    <th>Year</th>
+                    <th>Fuel</th>
+                    <th>Price</th>
+                    <th>New Price</th>
+                    <th>-</th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+            <div class="tbl-content">
+              <table>
+                <tbody id="table-body">
+                    
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section id="sold-wrapper">
+            
+              <div id="title-bar">
+                Sold cars:
+              </div>
+              <div id="nav">
+                <span>Make and model</span>
+                    <span>Production year</span>
+                    <span>Profit made</span>
+              </div>
+            <ul id="cars-list">
+              
+            </ul>
+          </section>
+          <p>Profit made: <strong id="profit">0.00</strong>$</p>
+</div>
+    </div>
+    <script src="./app.js"></script>
+  </body>
+</html>
