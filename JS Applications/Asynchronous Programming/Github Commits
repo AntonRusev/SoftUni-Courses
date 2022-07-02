@@ -1,0 +1,48 @@
+async function loadCommits() {
+    const username = document.getElementById('username').value;
+    const repo = document.getElementById('repo').value;
+    const commits = document.getElementById('commits');
+
+    try{
+        const response = await fetch(`https://api.github.com/repos/${username}/${repo}/commits`);
+
+        if (response.ok == false) {
+            throw new Error(`${response.status} ${response.statusText}`);
+        }
+
+        const data = await response.json();
+
+        commits.innerHTML = '';
+
+        for (let {commit} of data) {
+            const li = document.createElement('li');
+            li.textContent = `${commit.author.name} ${commit.message}`;
+            commits.appendChild(li);
+        }
+
+    } catch(error) {
+        commits.innerHTML = `Error: ${error.message}`;
+    }
+}
+
+Template:
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Github Commits</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+
+<body>
+    GitHub username:
+    <input type="text" id="username" value="nakov" /> <br>
+    Repo: <input type="text" id="repo" value="nakov.io.cin" />
+    <button onclick="loadCommits()">Load Commits</button>
+    <ul id="commits"></ul>
+    <script src="./app.js"></script>
+</body>
+
+</html>
