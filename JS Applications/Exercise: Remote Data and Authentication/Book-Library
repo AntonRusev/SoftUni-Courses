@@ -1,0 +1,195 @@
+function library(){
+    const url = 'http://localhost:3030/jsonstore/collections/books';
+    const tbody = document.querySelector('tbody');
+
+    document.querySelector('form').addEventListener('submit', submitBook);
+    document.getElementById('loadBooks').addEventListener('click', loadBooks);
+
+    const btnSaveSubmit = document.querySelector('form button');
+    let idForEdit = '';
+
+    
+
+    async function loadBooks(event) {
+        btnSaveSubmit.textContent = 'Submit';
+        document.querySelector('form h3').textContent = 'FORM';
+
+        try{
+            tbody.replaceChildren();
+
+            const response = await fetch(url);
+                if (response.ok == false) {
+                    const error = await response.json();
+                    throw new Error(error.message);
+                }
+            const data = await response.json();
+
+            Object.entries(data).forEach(element => {
+                const title = element[1].title;
+                const author = element[1].author;
+                const id = element[0];
+                createBookEntry(title, author, id);
+            })
+
+        } catch(error) {
+            alert(error.message);
+        }
+    }
+    function createBookEntry(title, author, id) {
+        const tr = document.createElement('tr');
+            const td1 = document.createElement('td');
+                td1.textContent = title;
+                tr.appendChild(td1);
+            const td2 = document.createElement('td');
+                td2.textContent = author;
+                tr.appendChild(td2);
+            const td3 = document.createElement('td');
+                const editBtn = document.createElement('button');
+                    editBtn.textContent = 'Edit';
+                    td3.appendChild(editBtn);
+                const deleteBtn = document.createElement('button');
+                    deleteBtn.textContent = 'Delete';
+                    td3.appendChild(deleteBtn);
+                tr.appendChild(td3);
+            tr.addEventListener('click', editOrDeleteBook);
+            tr.setAttribute('id', id);
+        tbody.appendChild(tr);
+    }
+    async function editOrDeleteBook(event) {
+        const bookRow = event.target.parentElement.parentElement;
+
+         if (event.target.textContent == 'Edit') {
+            document.querySelector('[name="title"]').value = bookRow.children[0].textContent;
+            document.querySelector('[name="author"]').value = bookRow.children[1].textContent;
+            document.querySelector('form h3').textContent = 'Edit FORM';
+            btnSaveSubmit.textContent = 'Save';
+            idForEdit = bookRow.id;
+
+         } else if (event.target.textContent == 'Delete'){
+            try{
+                const response = await fetch(`${url}/${bookRow.id}`, {
+                    method: 'DELETE'
+                });
+                    if (response.ok == false) {
+                        const error = await response.json();
+                        throw new Error(error.message)
+                    }
+                bookRow.remove();
+
+            } catch(error) {
+                alert(error.message);
+            }
+            
+         }
+    }
+    async function submitBook(event) {
+        event.preventDefault();
+
+        const formData = new FormData(event.target);
+
+        const author = formData.get('author').trim();
+        const title = formData.get('title').trim();
+
+        try{
+            if (author == '' || title == '') {
+                throw new Error('All fields are required');
+            }
+
+            if (btnSaveSubmit.textContent == 'Submit') {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        author,
+                        title
+                    })
+                });
+                    if (response.ok == false) {
+                        const error = await response.json();
+                        throw new Error(error.message);
+                    }
+                const data = response.json();
+            } else if (btnSaveSubmit.textContent == 'Save') {
+                const response = await fetch(`${url}/${idForEdit}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        author,
+                        title
+                    })
+                });
+                    if (response.ok == false) {
+                        const error = await response.json();
+                        throw new Error(error.message);
+                    }
+                const data = response.json();
+            }
+
+            event.target.reset();
+            loadBooks();
+
+        } catch(error) {
+            alert(error.message);
+        }
+    }
+}
+library();
+
+Template:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Books</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <button id="loadBooks">LOAD ALL BOOKS</button>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Harry Poter</td>
+                <td>J. K. Rowling</td>
+                <td>
+                    <button>Edit</button>
+                    <button>Delete</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Game of Thrones</td>
+                <td>George R. R. Martin</td>
+                <td>
+                    <button>Edit</button>
+                    <button>Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <form>
+        <h3>FORM</h3>
+        <label>TITLE</label>
+        <input type="text" name="title" placeholder="Title...">
+        <label>AUTHOR</label>
+        <input type="text" name="author" placeholder="Author...">
+        <button>Submit</button>
+    </form>
+    <script src="./app.js"></script>
+</body>
+</html>
+
+<!--Feel free to change/update/modify the HTML Structure-->
