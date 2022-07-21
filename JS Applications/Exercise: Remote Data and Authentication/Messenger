@@ -1,0 +1,91 @@
+function attachEvents() {
+    const url = 'http://localhost:3030/jsonstore/messenger';
+    document.querySelector('#refresh').addEventListener('click', refreshMessages);
+    document.querySelector('#submit').addEventListener('click', submitMessage);
+
+    const messageField = document.querySelector('#messages');
+    const inputName = document.querySelector('[name="author"]');
+    const inputMessage = document.querySelector('[name="content"]');
+
+    async function submitMessage(event) {
+        const author = inputName.value;
+        const content = inputMessage.value;
+            if (author == '' || content == '') {
+                return;
+            }
+
+        try{
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify({
+                    author,
+                    content
+                })
+            });
+
+                if (response.ok == false) {
+                    const error = await response.json();
+                    throw new Error(error.message);
+                }
+
+            const data = await response.json();
+            inputName.value = '';
+            inputMessage.value = '';
+            refreshMessages();
+
+        } catch(error) {
+            alert(error.message);
+        }
+    }
+
+    async function refreshMessages(event) {
+        try{
+            const response = await fetch(url);
+
+            if (response.ok == false) {
+                const error = await response.json();
+                throw new Error(error.message);
+            }
+
+            const data = await response.json();
+            let chat = []
+          Object.values(data).forEach((e) => {
+            chat.push(`${e.author}: ${e.content}`);
+          })
+          messageField.value = chat.join('\n');
+        } catch(error) {
+            alert(error.message);
+        }
+    }
+}
+
+attachEvents();
+
+Template:
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Messenger</title>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+
+<body>
+    <div id="main">
+        <textarea id="messages" cols="80" rows="12" disabled="true"></textarea>
+        <div id="controls">
+            <label for="author">Name: </label><input name="author" type="text"><br>
+            <label for="content">Message: </label><input name="content" type="text">
+            <input id="submit" type="button" value="Send">
+            <input id="refresh" type="button" value="Refresh">
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>
