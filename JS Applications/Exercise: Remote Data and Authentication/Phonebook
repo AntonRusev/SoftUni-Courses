@@ -1,0 +1,113 @@
+function attachEvents() {
+    const url = 'http://localhost:3030/jsonstore/phonebook';
+    document.getElementById('btnLoad').addEventListener('click', loadPhonebook);
+    document.getElementById('btnCreate').addEventListener('click', addToPhonebook);
+
+    const personInput = document.getElementById('person');
+    const phoneInput = document.getElementById('phone');
+
+    const phonebookList = document.getElementById('phonebook');
+
+    async function loadPhonebook(event){
+        phonebookList.replaceChildren();
+        try{
+            const response = await fetch(url);
+                if (response.ok == false) {
+                    const error = await response.json();
+                    throw new Error(error.message);
+                }
+            const data = await response.json();
+            
+            Object.values(data).forEach((e) => {
+                const li = document.createElement('li');
+                li.textContent = `${e.person}: ${e.phone}`;
+                li.setAttribute('id', e._id);
+                const button = document.createElement('button');
+                button.textContent = 'Delete';
+                button.addEventListener('click', deleteFromPhonebook);
+                li.appendChild(button);
+                phonebookList.appendChild(li);
+            })
+
+        } catch(error) {
+            alert(error.message);
+        }
+    }
+    async function addToPhonebook(event) {
+        const person = personInput.value;
+        const phone = phoneInput.value;
+
+        try{
+            if(person == '' || phone == ''){
+                throw new Error('All fields must be filled');
+            }
+
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify({
+                    person,
+                    phone
+                })
+            });
+                if(response.ok == false) {
+                    const error = await response.json();
+                    throw new Error(error.message);
+                }
+            const data = response.json();
+        } catch(error){
+            alert(error.message);
+        }
+        personInput.value = '';
+        phoneInput.value = '';
+        loadPhonebook();
+    }
+    async function deleteFromPhonebook(event) {
+        const id = event.target.parentElement.id;
+
+        try{
+            const response = await fetch(`${url}/${id}`, {
+                method: 'DELETE'
+            });
+            if (response.ok == false) {
+                const error = await response.json();
+                throw new Error(error.message);
+            }
+            loadPhonebook();
+        } catch(error) {
+            alert(error.message);
+        }
+    }
+}
+
+attachEvents();
+
+Template:
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Phonebook</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+<body>
+    <h1>Phonebook</h1>
+    <ul id="phonebook"></ul>
+    <button id="btnLoad">Load</button>
+
+    <h2>Create Contact</h2>
+    Person: <input type="text" id="person" />
+    <br>
+    Phone: <input type="text" id="phone" />
+    <br>
+    <button id="btnCreate">Create</button>
+    <script src="app.js"></script>
+
+</body>
+
+</html>
