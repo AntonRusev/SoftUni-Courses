@@ -1,0 +1,41 @@
+const { chromium } = require('playwright-chromium');
+const { expect } = require('chai');
+
+let browser, page; // Declaration of reusable variables
+
+describe('E2E Tests', async function() {
+    this.timeout('5000');
+
+    before(async () => {browser = await chromium.launch(/*{headless: false, slowMo: 2000}*/);});
+    after(async () => {await browser.close(); });
+    beforeEach(async () => {page = await browser.newPage(); });
+    afterEach(async () => {await page.close(); });
+
+    it ('works', async () => {
+        await page.goto('http://127.0.0.1:5500/01.%20Accordion/');
+        await page.click('text = More')
+        await page.screenshot({path: 'site.png'});
+    });
+    it('has correct titles', async () => {
+        await page.goto('http://127.0.0.1:5500/01.%20Accordion/');
+        const content = await page.textContent('#main');
+
+        await page.waitForSelector('.accordion'); // - Required in order to work with throttling! /!\
+
+        expect(content).to.contain('Scalable Vector Graphics', 'Unix', 'Open standard', 'ALGOL');
+    });
+    it('the "More" button works', async () => {
+        await page.goto('http://127.0.0.1:5500/01.%20Accordion/');
+        await page.click('text = More');
+
+        const visible = await page.isVisible('.accordion p');
+        expect(visible).to.be.true;
+    });
+    it('the "Less" button works', async () => {
+        await page.goto('http://127.0.0.1:5500/01.%20Accordion/');
+        await page.click('text = More');
+        await page.click('text = Less');
+        const visible = await page.isVisible('.accordion p');
+        expect(visible).to.be.false;
+    });
+});
